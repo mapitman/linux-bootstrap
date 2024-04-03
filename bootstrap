@@ -5,7 +5,8 @@
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/full-bootstrap.sh)
 
 # Check if we're running on Ubuntu
-if grep -Fvq "ubuntu" /etc/os-release
+source /etc/os-release
+if [[ "$NAME" != "Ubuntu" ]]
 then
     echo "Not running on Ubuntu, exiting."
     exit 1
