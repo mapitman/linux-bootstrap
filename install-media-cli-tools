@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Install commandline multimedia tools
-sudo nala install -y
+sudo apt-get install -y
 ffmpeg \
 handbrake-cli \
 imagemagick \

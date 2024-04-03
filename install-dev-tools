@@ -7,7 +7,7 @@ mkdir -p $HOME/src/gitlab
 mkdir -p $HOME/src/work
 
 # Install dev packages
-sudo nala install -y \
+sudo apt-get install -y \
 autoconf \
 autogen \
 bison \

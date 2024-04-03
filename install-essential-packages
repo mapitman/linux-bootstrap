@@ -3,11 +3,12 @@
 # Update package repos
 sudo apt-get update
 
-# Install some initial packages
-sudo apt-get install -y nala gpg apt-transport-https lsb-release wget
-
 # Install essential packages
-sudo nala install -y \
+sudo apt-get install -y \
+gpg\
+apt-transport-https \
+lsb-release\
+wget \
 apt-transport-https \
 bat \
 btop \
