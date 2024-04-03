@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+# Performs a full bootstrap, running other scripts from this repository.
+# Usage:
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/full-bootstrap.sh)
+
+# Check if we're running on Ubuntu
+if grep -Fvq "ubuntu" /etc/os-release
+then
+    echo "Not running on Ubuntu, exiting."
+    exit 1
+fi
+
+# Essential
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-essential-packages)
+
+# Zsh customizations
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-zsh-customizations)
+
+# Desktop packages
+read -p "Install desktop apps? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-desktop-packages)
+fi
+
+# Install media CLI tools
+read -p "Install media CLI tools? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-media-cli-tools)
+fi
+
+# Bluray and DVD libs
+read -p "Install Bluray and DVD apps? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-optical-disc-tools)
+
+    read -p "Install makemkv? " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-makemkv)
+    fi
+fi
+
+# Dev packages
+read -p "Install development tools? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-dev-tools)
+
+    read -p "Install JetBrains tools? " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-jetbrains-tools)
+    fi
+fi

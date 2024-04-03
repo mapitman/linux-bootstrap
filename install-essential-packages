@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Update package repos
+sudo apt-get update
+
+# Install some initial packages
+sudo apt-get install -y nala gpg apt-transport-https lsb-release wget
+
+# Install essential packages
+sudo nala install -y \
+apt-transport-https \
+bat \
+btop \
+docker.io \
+git \
+libfuse2 \
+lm-sensors \
+neovim
+nmap \
+pv \
+pwgen \
+ranger \
+renameutils \
+tar
+tmux \
+ubuntu-restricted-extras \
+yadm \
+zsh \
+zsh-doc
+
+# Install deb-get
+# https://github.com/wimpysworld/deb-get
+curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
+sudo deb-get update
+sudo deb-get install \
+fastfetch \
+fd
+
+# add current user to docker group
+echo "Adding current user to docker group..."
+sudo usermod -aG docker $USER

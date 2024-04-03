@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# Create some directories that I use for development
+echo "Setting up source code directories..."
+mkdir -p $HOME/src/github
+mkdir -p $HOME/src/gitlab
+mkdir -p $HOME/src/work
+
+# Install dev packages
+sudo nala install -y \
+autoconf \
+autogen \
+bison \
+build-essential \
+checkinstall \
+cmake \
+dialog \
+dotnet-sdk-6.0 \
+dotnet-sdk-7.0 \
+dotnet-sdk-8.0 \
+flex \
+git \
+git-extras \
+golang \
+hugo \
+jq \
+libaacs-dev \
+libavcodec-dev \
+libavcodec-extra \
+libbluray2 \
+libcurl4-openssl-dev \
+libssl-dev \
+libtool \
+make \
+mercurial
+openjdk-11-jdk \
+pandoc \
+pylint \
+python-is-python3 \
+python3-autopep8 \
+python3-pip \
+twine \
+universal-ctags \
+zlib1g-dev
