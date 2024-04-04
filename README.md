@@ -11,5 +11,5 @@ To perform a full bootstrap from a clean Ubuntu install do:
 
 ```sh
 sudo apt-get install -y curl git && \
-  source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/bootstrap)
+  source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/bootstrap)
 ```

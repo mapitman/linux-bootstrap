@@ -3,10 +3,10 @@
 # Detects the operating system and then performs a full bootstrap of the
 # system by running the appropriate script.
 # Usage:
-# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/bootstrap)
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/bootstrap)
 
 source /etc/os-release
 if [[ "$NAME" == "Ubuntu" ]]
 then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/bootstrap)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/bootstrap)
 fi
