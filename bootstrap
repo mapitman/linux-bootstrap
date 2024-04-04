@@ -8,5 +8,5 @@
 source /etc/os-release
 if [[ "$NAME" == "Ubuntu" ]]
 then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/bootstrap)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/bootstrap)
 fi
