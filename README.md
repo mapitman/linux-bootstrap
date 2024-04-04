@@ -10,6 +10,6 @@ detects the distribution and runs the appropriate set of scripts.
 To perform a full bootstrap from a clean Ubuntu install do:
 
 ```sh
-sudo apt update && sudo apt upgrade && sudo apt install -y curl git && \
+sudo apt update && sudo apt upgrade -y && sudo apt install -y curl git && \
   source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/bootstrap)
 ```
