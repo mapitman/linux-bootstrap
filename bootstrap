@@ -18,6 +18,21 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/
 # Zsh customizations
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-zsh-customizations)
 
+# Dev packages
+read -p "Install development tools? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-dev-tools)
+
+    read -p "Install JetBrains tools? " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-jetbrains-tools)
+    fi
+fi
+
 # Desktop packages
 read -p "Install desktop apps? " -n 1 -r
 echo
@@ -46,20 +61,5 @@ then
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-makemkv)
-    fi
-fi
-
-# Dev packages
-read -p "Install development tools? " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-dev-tools)
-
-    read -p "Install JetBrains tools? " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/ubuntu-bootstrap/initial-dev/install-jetbrains-tools)
     fi
 fi

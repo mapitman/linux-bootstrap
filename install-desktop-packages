@@ -26,6 +26,7 @@ fonts-cascadia-code \
 handbrake \
 gnome-browser-connector \
 
+deb-get update
 deb-get install
 android-messages-desktop \
 youtube-music \

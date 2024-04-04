@@ -32,7 +32,7 @@ libcurl4-openssl-dev \
 libssl-dev \
 libtool \
 make \
-mercurial
+mercurial \
 openjdk-11-jdk \
 pandoc \
 pylint \
