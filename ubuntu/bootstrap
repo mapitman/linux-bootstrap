@@ -61,6 +61,6 @@ then
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/ubuntu/initial-dev/install-makemkv)
+        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-makemkv)
     fi
 fi
