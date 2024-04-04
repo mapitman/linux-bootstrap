@@ -7,7 +7,7 @@
 
 # Check if we're running on Ubuntu
 source /etc/os-release
-if [[ ! "$ID" =~ .*ubuntu.* ]]
+if [[ ! "$ID_LIKE" =~ .*ubuntu.* ]]
 then
     echo "Not running on Ubuntu or an Ubuntu derivitive, exiting."
     exit 1
