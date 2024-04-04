@@ -3,7 +3,7 @@
 # Install makemkv
 if ! type makemkv
 then
-    MAKEMKV_VERSION=1.17.5
+    MAKEMKV_VERSION=1.17.6
     mkdir -p /tmp/makemkv-build
     cd /tmp/makemkv-build
     curl -O https://www.makemkv.com/download/makemkv-bin-$MAKEMKV_VERSION.tar.gz
