@@ -3,15 +3,16 @@
 # Install makemkv
 if ! type makemkv
 then
-    MAKEMKV_VERSION=1.17.6
+    MAKEMKV_VERSION="1.17.6"
     mkdir -p /tmp/makemkv-build
     cd /tmp/makemkv-build
-    curl -O https://www.makemkv.com/download/makemkv-bin-$MAKEMKV_VERSION.tar.gz
-    curl -O https://www.makemkv.com/download/makemkv-oss-$MAKEMKV_VERSION.tar.gz
+
+    curl -O "https://www.makemkv.com/download/makemkv-bin-$MAKEMKV_VERSION.tar.gz"
+    curl -O "https://www.makemkv.com/download/makemkv-oss-$MAKEMKV_VERSION.tar.gz"
     curl -O https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 
-    tar xzvf makemkv-bin-$MAKEMKV_VERSION.tar.gz
-    tar xzvf makemkv-oss-$MAKEMKV_VERSION.tar.gz
+    tar xzvf "makemkv-bin-$MAKEMKV_VERSION.tar.gz"
+    tar xzvf "makemkv-oss-$MAKEMKV_VERSION.tar.gz"
     tar xjvf ffmpeg-snapshot.tar.bz2
 
     sudo apt-get install -y \
@@ -32,13 +33,13 @@ then
     make install
     cd -
 
-    cd /tmp/makemkv-build/makemkv-oss-$MAKEMKV_VERSION
+    cd "/tmp/makemkv-build/makemkv-oss-$MAKEMKV_VERSION"
     PKG_CONFIG_PATH=/tmp/ffmpeg/lib/pkgconfig ./configure
     make
     sudo make install
     cd -
 
-    cd /tmp/makemkv-build/makemkv-bin-$MAKEMKV_VERSION
+    cd "/tmp/makemkv-build/makemkv-bin-$MAKEMKV_VERSION"
     make
     sudo make install
     cd -
