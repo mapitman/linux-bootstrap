@@ -5,8 +5,11 @@
 # Oh-My-Zsh
 # https://ohmyz.sh/
 
-
-echo "Press <CTRL> - D after oh-my-zsh install to continue."
+echo "************************************************************"
+echo "************************************************************"
+echo "*** Press <CTRL> - D after oh-my-zsh install to continue.***"
+echo "************************************************************"
+echo "************************************************************"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # plugins
