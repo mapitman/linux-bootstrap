@@ -15,7 +15,7 @@ fi
 
 # Install nala to enable parallel package downloads
 # https://gitlab.com/volian/nala
-sudo apt install nala
+sudo apt-get install -y nala
 
 # Essential
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-essential-packages)
