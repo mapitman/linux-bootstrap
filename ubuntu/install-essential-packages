@@ -10,7 +10,7 @@ fi
 sudo "$pkg_man update"
 
 # Install essential packages
-sudo $pkg_man -y \
+sudo $pkg_man install -y \
 gpg \
 apt-transport-https \
 lsb-release \
