@@ -10,7 +10,7 @@ fi
 sudo "$pkg_man" update
 
 # Update packages
-sudo "$pkg_man upgrade -y"
+sudo "$pkg_man" upgrade -y
 
 # Install essential packages
 sudo "$pkg_man" install -y \
@@ -42,7 +42,6 @@ zsh-doc
 # https://github.com/wimpysworld/deb-get
 curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
 sudo deb-get update
-sudo deb-get upgrade
 sudo deb-get install \
 fastfetch \
 fd
