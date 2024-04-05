@@ -6,7 +6,7 @@
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/bootstrap)
 
 source /etc/os-release
-if [[ "$ID_LIKE" =~ .*ubuntu.* ]]
+if [[ "$ID" == "ubuntu" || "$ID_LIKE" =~ .*ubuntu.* ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/bootstrap)
 fi
