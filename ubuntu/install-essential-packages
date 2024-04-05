@@ -7,10 +7,13 @@ else
 fi
 
 # Update package repos
-sudo "$pkg_man update"
+sudo "$pkg_man" update
+
+# Update packages
+sudo "$pkg_man upgrade -y"
 
 # Install essential packages
-sudo $pkg_man install -y \
+sudo "$pkg_man" install -y \
 gpg \
 apt-transport-https \
 lsb-release \
