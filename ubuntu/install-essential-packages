@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
+if type nala >/dev/null
+then
+    pkg_man="nala"
+else
+    pkg_man="apt-get"
+fi
 
 # Update package repos
-sudo apt-get update
+sudo "$pkg_man update"
 
 # Install essential packages
-sudo apt-get install -y \
+sudo $pkg_man -y \
 gpg \
 apt-transport-https \
 lsb-release \
@@ -33,6 +39,7 @@ zsh-doc
 # https://github.com/wimpysworld/deb-get
 curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
 sudo deb-get update
+sudo deb-get upgrade
 sudo deb-get install \
 fastfetch \
 fd
