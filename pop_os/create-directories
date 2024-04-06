@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Create some directories that I use for development
+echo "Setting up source code directories..."
+mkdir -p $HOME/src/github
+mkdir -p $HOME/src/gitlab
+mkdir -p $HOME/src/work

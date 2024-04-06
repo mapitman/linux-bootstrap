@@ -6,7 +6,12 @@
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/bootstrap)
 
 source /etc/os-release
-if [[ "$ID" == "ubuntu" || "$ID_LIKE" =~ .*ubuntu.* ]]
+if [[ "$ID" == "ubuntu" ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/bootstrap)
+elif [[ "$ID" == "pop" ]]
+then
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/pop_os/bootstrap)
+else
+    echo "Unsupported Linux distribution."
 fi
