@@ -7,7 +7,7 @@
 
 # Check if we're running on Ubuntu
 source /etc/os-release
-if [[ ! "$ID" != "pop" ]]
+if [[ "$ID" != "pop" ]]
 then
     echo "Not running Pop!_OS, exiting."
     exit 1
