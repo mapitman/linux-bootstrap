@@ -4,39 +4,43 @@
 
 # Oh-My-Zsh
 # https://ohmyz.sh/
-
-echo ""
-echo ""
-echo "************************************************************"
-echo "************************************************************"
-echo "*** Press <CTRL> - D after oh-my-zsh install to continue.***"
-echo "************************************************************"
-echo "************************************************************"
-echo ""
-echo ""
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# plugins
-# Autosuggestions
-if [[ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]
+if [[ -d $HOME/.oh-my-zsh ]]
 then
-    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-    rm -rf  "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions/.git
-    rm -rf  "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions/.github
-    rm -rf  "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions/.circleci
-fi
+    echo "Oh My Zsh is already installed."
+else
+    echo ""
+    echo ""
+    echo "************************************************************"
+    echo "************************************************************"
+    echo "*** Press <CTRL> - D after oh-my-zsh install to continue.***"
+    echo "************************************************************"
+    echo "************************************************************"
+    echo ""
+    echo ""
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Syntax Highlighting
-if [[ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]]
-then
-    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-    rm -rf "$HOME"/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/.git
-fi
+    # plugins
+    # Autosuggestions
+    if [[ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]
+    then
+        git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        rm -rf  "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions/.git
+        rm -rf  "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions/.github
+        rm -rf  "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions/.circleci
+    fi
 
-# Pure prompt
-if [[ ! -d $HOME/.zsh/pure ]]
-then
-    mkdir -p "$HOME/.zsh"
-    git clone --depth=1 https://github.com/sindresorhus/pure.git "$HOME"/.zsh/pure
-    rm -rf "$HOME"/.zsh/pure/.git
+    # Syntax Highlighting
+    if [[ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]]
+    then
+        git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        rm -rf "$HOME"/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/.git
+    fi
+
+    # Pure prompt
+    if [[ ! -d $HOME/.zsh/pure ]]
+    then
+        mkdir -p "$HOME/.zsh"
+        git clone --depth=1 https://github.com/sindresorhus/pure.git "$HOME"/.zsh/pure
+        rm -rf "$HOME"/.zsh/pure/.git
+    fi
 fi
