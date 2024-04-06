@@ -10,18 +10,6 @@ fi
 # Install makemkv
 if ! type makemkv
 then
-    MAKEMKV_VERSION="1.17.6"
-    mkdir -p /tmp/makemkv-build
-    cd /tmp/makemkv-build
-
-    curl -O "https://www.makemkv.com/download/makemkv-bin-$MAKEMKV_VERSION.tar.gz"
-    curl -O "https://www.makemkv.com/download/makemkv-oss-$MAKEMKV_VERSION.tar.gz"
-    curl -O https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
-
-    tar xzvf "makemkv-bin-$MAKEMKV_VERSION.tar.gz"
-    tar xzvf "makemkv-oss-$MAKEMKV_VERSION.tar.gz"
-    tar xjvf ffmpeg-snapshot.tar.bz2
-
     sudo "$pkg_man" install -y \
     build-essential \
     pkg-config \
@@ -34,6 +22,19 @@ then
     zlib1g-dev \
     yasm \
     libfdk-aac-dev
+
+    MAKEMKV_VERSION="1.17.6"
+    mkdir -p /tmp/makemkv-build
+    cd /tmp/makemkv-build
+
+    curl -O "https://www.makemkv.com/download/makemkv-bin-$MAKEMKV_VERSION.tar.gz"
+    curl -O "https://www.makemkv.com/download/makemkv-oss-$MAKEMKV_VERSION.tar.gz"
+    curl -O https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+
+    tar xzvf "makemkv-bin-$MAKEMKV_VERSION.tar.gz"
+    tar xzvf "makemkv-oss-$MAKEMKV_VERSION.tar.gz"
+    tar xjvf ffmpeg-snapshot.tar.bz2
+    cd -
 
     cd /tmp/makemkv-build/ffmpeg
     ./configure --prefix=/tmp/ffmpeg --enable-static --disable-shared --enable-pic --enable-libfdk-aac
