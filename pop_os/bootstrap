@@ -5,7 +5,7 @@
 # Usage:
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/pop_os/bootstrap)
 
-# Check if we're running on Ubuntu
+# Check if we're running on Pop!_OS
 source /etc/os-release
 if [[ "$ID" != "pop" ]]
 then
