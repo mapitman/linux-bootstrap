@@ -22,6 +22,11 @@ sudo "$pkg_man" upgrade -y
 curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
 sudo deb-get update
 
+# Setup GitHub CLI prerequisites
+sudo mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
 # Install packages
 sudo "$pkg_man" install -y \
 apt-transport-https \
@@ -48,6 +53,7 @@ ffmpeg \
 flex \
 fonts-cascadia-code \
 fonts-firacode \
+gh \
 gimp \
 git \
 git \

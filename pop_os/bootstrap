@@ -13,6 +13,9 @@ then
     exit 1
 fi
 
+# Create an ssh key
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/pop_os/create-ssh-key)
+
 # Install nala to enable parallel package downloads
 # https://gitlab.com/volian/nala
 sudo apt-get install -y nala
