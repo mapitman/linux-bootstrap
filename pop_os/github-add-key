@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
+gh auth refresh -h github.com -s admin:public_key
 gh ssh-key add ./.ssh/id_rsa.pub
