@@ -13,6 +13,9 @@ then
     exit 1
 fi
 
+# Create an ssh key
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/create-ssh-key)
+
 # Install nala to enable parallel package downloads
 # https://gitlab.com/volian/nala
 sudo apt-get install -y nala
@@ -21,14 +24,18 @@ sudo apt-get install -y nala
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-essential-packages)
 
 # Zsh customizations
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-zsh-customizations)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/install-zsh-customizations)
 
 # Dev packages
 read -p "Install development tools? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-dev-tools)
+    # Create directories
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/create-directories)
+
+    # Install dev packages
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-dev-packages)
 
     read -p "Install JetBrains tools? " -n 1 -r
     echo
@@ -36,6 +43,15 @@ then
     then
         source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-jetbrains-tools)
     fi
+
+    # Authenticate to GitHub
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-auth-login)
+
+    # Add ssh key to GitHaub
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-add-key)
+
+    # Logout of GitHub
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-auth-logout)
 fi
 
 # Desktop packages
