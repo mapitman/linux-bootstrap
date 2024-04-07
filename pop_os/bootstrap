@@ -31,6 +31,7 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/i
 
 # Install JetBrains Toolbox
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/pop_os/install-jetbrains-tools)
+
 # Bluray and DVD libs
 read -p "Install Bluray and DVD apps? " -n 1 -r
 echo
