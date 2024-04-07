@@ -6,6 +6,14 @@
 # https://help.ubuntu.com/community/Repositories/Ubuntu
 sudo add-apt-repository -y universe
 
+# Install Microsoft repo for VS Code
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+sudo apt install apt-transport-https
+sudo apt update
+
 if type nala >/dev/null
 then
     pkg_man="nala"
@@ -13,34 +21,39 @@ else
     pkg_man="apt-get"
 fi
 
+# Update package repos
+sudo "$pkg_man" install -y apt-transport-https
+sudo "$pkg_man" update
+
 # Install graphical desktop packages
 sudo "$pkg_man" install -y \
-libfontconfig \
-mesa-utils \
 audacity \
-pipx \
+code \
 darktable \
 evolution \
 evolution-ews \
+fonts-cascadia-code \
 fonts-firacode \
 gimp \
-gnome-tweaks \
-kdiff3 \
-obs-studio \
-xclip \
-libavcodec-extra \
-ubuntu-restricted-extras \
-fonts-cascadia-code \
-handbrake \
 gnome-browser-connector \
+gnome-tweaks \
+handbrake \
+kdiff3 \
+libavcodec-extra \
+libfontconfig \
+mesa-utils \
+obs-studio \
+pipx \
+ubuntu-restricted-extras \
+xclip \
 
 deb-get update
 deb-get install \
 android-messages-desktop \
-youtube-music \
-quickemu \
-papirus-icon-theme \
 mdview
+papirus-icon-theme \
+quickemu \
+youtube-music \
 
 pipx install gnome-extensions-cli --system-site-packages
 
