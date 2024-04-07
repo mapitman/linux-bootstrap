@@ -13,7 +13,7 @@ if ! type makemkv
 then
     MAKEMKV_VERSION="1.17.6"
     mkdir -p /tmp/makemkv-build
-    cd /tmp/makemkv-build
+    pushd /tmp/makemkv-build
 
     curl -O "https://www.makemkv.com/download/makemkv-bin-$MAKEMKV_VERSION.tar.gz"
     curl -O "https://www.makemkv.com/download/makemkv-oss-$MAKEMKV_VERSION.tar.gz"
@@ -22,6 +22,8 @@ then
     tar xzvf "makemkv-bin-$MAKEMKV_VERSION.tar.gz"
     tar xzvf "makemkv-oss-$MAKEMKV_VERSION.tar.gz"
     tar xjvf ffmpeg-snapshot.tar.bz2
+
+    popd
 
     sudo "$pkg_man" install -y \
     build-essential \
@@ -36,19 +38,19 @@ then
     yasm \
     libfdk-aac-dev
 
-    cd /tmp/makemkv-build/ffmpeg
+    pushd /tmp/makemkv-build/ffmpeg
     ./configure --prefix=/tmp/ffmpeg --enable-static --disable-shared --enable-pic --enable-libfdk-aac
     make install
-    cd -
+    popd
 
-    cd "/tmp/makemkv-build/makemkv-oss-$MAKEMKV_VERSION"
+    pushd "/tmp/makemkv-build/makemkv-oss-$MAKEMKV_VERSION"
     PKG_CONFIG_PATH=/tmp/ffmpeg/lib/pkgconfig ./configure
     make
     sudo make install
-    cd -
+    popd
 
-    cd "/tmp/makemkv-build/makemkv-bin-$MAKEMKV_VERSION"
+    pushd "/tmp/makemkv-build/makemkv-bin-$MAKEMKV_VERSION"
     make
     sudo make install
-    cd -
+    popd
 fi
