@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-add-key)
 
-gh auth refresh -h github.com -s admin:public_key
 gh ssh-key add ./.ssh/id_rsa.pub

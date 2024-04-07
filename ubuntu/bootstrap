@@ -41,7 +41,7 @@ then
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-jetbrains-tools)
+        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/install-jetbrains-tools)
     fi
 
     # Authenticate to GitHub
@@ -75,7 +75,7 @@ read -p "Install Bluray and DVD apps? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-optical-disc-tools)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-optical-disc-packages)
 
     read -p "Install makemkv? " -n 1 -r
     echo
