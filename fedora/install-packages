@@ -7,7 +7,7 @@ sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-rel
 sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_39/home:TheLocehiliosan:yadm.repo
 sudo dnf -y upgrade
 
-sudo dnf install -y
+sudo dnf install -y \
     NetworkManager-tui \
     audacity \
     autoconf \
