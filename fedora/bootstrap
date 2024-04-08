@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Performs a full bootstrap of Fedora.
+# Usage:
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/fedora/bootstrap)
+
+# Check if we're running on Pop!_OS
+source /etc/os-release
+if [[ "$ID" != "fedora" ]]
+then
+    echo "Not running Fedora, exiting."
+    exit 1
+fi
+
+# Create an ssh key
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/create-ssh-key)
+
+# Install packages
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/install-packages)
+
+# Zsh customizations
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/install-zsh-customizations)
+
+# Create directories
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/create-directories)
+
+# Install JetBrains Toolbox
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/install-jetbrains-tools)
+
+# Authenticate to GitHub
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-auth-login)
+
+# Add ssh key to GitHaub
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-add-key)
+
+# Logout of GitHub
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-auth-logout)
