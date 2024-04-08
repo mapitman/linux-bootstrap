@@ -14,7 +14,7 @@ detects the distribution and runs the appropriate set of scripts.
 To perform a full bootstrap from a clean Fedora install do:
 
 ```sh
-sudo dnf upgrade && sudo dnf install curl git && \
+sudo dnf install curl && \
   source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/bootstrap)
 ```
 

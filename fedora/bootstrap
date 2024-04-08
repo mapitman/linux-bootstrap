@@ -4,7 +4,7 @@
 # Usage:
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/fedora/bootstrap)
 
-# Check if we're running on Pop!_OS
+# Check if we're running on Fedora
 source /etc/os-release
 if [[ "$ID" != "fedora" ]]
 then
@@ -16,7 +16,7 @@ fi
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/create-ssh-key)
 
 # Install packages
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/install-packages)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/fedora/install-packages)
 
 # Zsh customizations
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/install-zsh-customizations)
