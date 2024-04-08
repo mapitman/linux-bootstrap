@@ -38,7 +38,6 @@ sudo dnf install -y \
     gnome-shell-extension-dash-to-dock \
     gnome-shell-extension-freon \
     gnome-shell-extension-gpaste \
-    gnome-shell-extension-paperwm \
     gnome-tweaks \
     golang \
     gpaste \
