@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/create-directories)
+
+# Create some directories that I use for development
+echo "Setting up source code directories..."
+mkdir -p $HOME/src/github
+mkdir -p $HOME/src/gitlab
+mkdir -p $HOME/src/work

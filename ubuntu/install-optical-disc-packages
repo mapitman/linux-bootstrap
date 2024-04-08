@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-optical-disc-packages)
+
+if type nala >/dev/null
+then
+    pkg_man="nala"
+else
+    pkg_man="apt-get"
+fi
+
+# Install BluRay and DVD libraries
+sudo "$pkg_man" install -y \
+devscripts \
+libbluray-bdj \
+libaacs0 \
+libdvd-pkg
+
+sudo dpkg-reconfigure libdvd-pkg
+
+mkdir -p ~/.config/aacs/
+curl -k -L -o ~/.config/aacs/KEYDB.cfg http://vlc-bluray.whoknowsmy.name/files/KEYDB.cfg

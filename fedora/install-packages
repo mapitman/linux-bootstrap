@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_39/home:TheLocehiliosan:yadm.repo
+sudo dnf install 'dnf-command(config-manager)'
+sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+sudo dnf -y upgrade
+
+sudo dnf install -y \
+    NetworkManager-tui \
+    audacity \
+    autoconf \
+    autogen \
+    bat \
+    bison \
+    cascadia-code-fonts\ \
+    code \
+    ctags \
+    darktable \
+    dialog \
+    docker \
+    dotnet-sdk-6.0 \
+    dotnet-sdk-7.0 \
+    dotnet-sdk-8.0 \
+    evolution \
+    fastfetch \
+    ffmpeg \
+    ffmpeg-devel \
+    fira-code-fonts \
+    flex \
+    fontawesome-fonts \
+    gh \
+    gimp \
+    git-gui \
+    gitk \
+    gnome-shell-extension-blur-my-shell \
+    gnome-shell-extension-caffeine \
+    gnome-shell-extension-dash-to-dock \
+    gnome-shell-extension-freon \
+    gnome-shell-extension-gpaste \
+    gnome-tweaks \
+    golang \
+    gpaste \
+    gpaste-bash-completion \
+    gpaste-ui \
+    gpaste-zsh-completion \
+    htop \
+    hyprland \
+    java-latest-openjdk \
+    jq \
+    kdiff3 \
+    krita \
+    libtool \
+    light \
+    make \
+    mercurial \
+    neovim \
+    pandoc \
+    powerline-fonts \
+    pwgen \
+    pylint \
+    python3-autopep8 \
+    python3-netifaces \
+    python3-pip \
+    python3-psutil \
+    python3-pypandoc \
+    python3-requests \
+    ranger \
+    rpmdevtools \
+    rpmlint \
+    tmux \
+    twine \
+    util-linux-user \
+    w3m \
+    w3m-img \
+    waybar \
+    xclip \
+    yadm \
+    zsh \
+    --allowerasing
+

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-logout)
+
+gh auth logout

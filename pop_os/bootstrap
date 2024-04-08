@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# Performs a full bootstrap of Pop!_OS, running all of the other scripts
+# in this directory.
+# Usage:
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/pop_os/bootstrap)
+
+# Check if we're running on Pop!_OS
+source /etc/os-release
+if [[ "$ID" != "pop" ]]
+then
+    echo "Not running Pop!_OS, exiting."
+    exit 1
+fi
+
+# Create an ssh key
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/create-ssh-key)
+
+# Install nala to enable parallel package downloads
+# https://gitlab.com/volian/nala
+sudo apt-get install -y nala
+
+# Install packages
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/pop_os/install-packages)
+
+# Zsh customizations
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-zsh-customizations)
+
+# Create directories
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/create-directories)
+
+# Install JetBrains Toolbox
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-jetbrains-tools)
+
+# Bluray and DVD libs
+read -p "Install Bluray and DVD apps? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/pop_os/install-optical-disc-packagescurl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/)
+
+    read -p "Install makemkv? " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/pop_os/install-makemkv)
+    fi
+fi
+
+# Authenticate to GitHub
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-login)
+
+# Add ssh key to GitHaub
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-add-key)
+
+# Logout of GitHub
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-logout)
