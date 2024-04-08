@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-optical-disc-packages)
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-optical-disc-packages)
 
 if type nala >/dev/null
 then

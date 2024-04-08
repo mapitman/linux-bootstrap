@@ -2,7 +2,7 @@
 
 # Performs a full bootstrap of Fedora.
 # Usage:
-# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/fedora/bootstrap)
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/fedora/bootstrap)
 
 # Check if we're running on Fedora
 source /etc/os-release
@@ -13,25 +13,25 @@ then
 fi
 
 # Create an ssh key
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/create-ssh-key)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/create-ssh-key)
 
 # Install packages
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/fedora/install-packages)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/fedora/install-packages)
 
 # Zsh customizations
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/install-zsh-customizations)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-zsh-customizations)
 
 # Create directories
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/create-directories)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/create-directories)
 
 # Install JetBrains Toolbox
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/install-jetbrains-tools)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-jetbrains-tools)
 
 # Authenticate to GitHub
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-auth-login)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-login)
 
 # Add ssh key to GitHaub
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-add-key)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-add-key)
 
 # Logout of GitHub
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-auth-logout)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-logout)

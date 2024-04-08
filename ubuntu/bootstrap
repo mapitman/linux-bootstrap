@@ -3,7 +3,7 @@
 # Performs a full bootstrap of Ubuntu, running all of the other scripts
 # in this directory.
 # Usage:
-# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/bootstrap)
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/bootstrap)
 
 # Check if we're running on Ubuntu
 source /etc/os-release
@@ -14,17 +14,17 @@ then
 fi
 
 # Create an ssh key
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/create-ssh-key)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/create-ssh-key)
 
 # Install nala to enable parallel package downloads
 # https://gitlab.com/volian/nala
 sudo apt-get install -y nala
 
 # Essential
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-essential-packages)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-essential-packages)
 
 # Zsh customizations
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/install-zsh-customizations)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-zsh-customizations)
 
 # Dev packages
 read -p "Install development tools? " -n 1 -r
@@ -32,26 +32,26 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     # Create directories
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/create-directories)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/create-directories)
 
     # Install dev packages
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-dev-packages)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-dev-packages)
 
     read -p "Install JetBrains tools? " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/install-jetbrains-tools)
+        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-jetbrains-tools)
     fi
 
     # Authenticate to GitHub
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-auth-login)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-login)
 
     # Add ssh key to GitHaub
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-add-key)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-add-key)
 
     # Logout of GitHub
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/generic/github-auth-logout)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-logout)
 fi
 
 # Desktop packages
@@ -59,7 +59,7 @@ read -p "Install desktop apps? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-desktop-packages)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-desktop-packages)
 fi
 
 # Install media CLI tools
@@ -67,7 +67,7 @@ read -p "Install media CLI tools? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-media-cli-tools)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-media-cli-tools)
 fi
 
 # Bluray and DVD libs
@@ -75,12 +75,12 @@ read -p "Install Bluray and DVD apps? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-optical-disc-packages)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-optical-disc-packages)
 
     read -p "Install makemkv? " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-makemkv)
+        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-makemkv)
     fi
 fi

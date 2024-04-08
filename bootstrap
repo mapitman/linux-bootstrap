@@ -3,18 +3,18 @@
 # Detects the operating system and then performs a full bootstrap of the
 # system by running the appropriate script.
 # Usage:
-# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/bootstrap)
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/bootstrap)
 
 source /etc/os-release
 if [[ "$ID" == "ubuntu" ]]
 then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/bootstrap)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/bootstrap)
 elif [[ "$ID" == "pop" ]]
 then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/pop_os/bootstrap)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/pop_os/bootstrap)
 elif [[ "$ID" == "fedora" ]]
 then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/fedora/bootstrap)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/fedora/bootstrap)
 else
     echo "Unsupported Linux distribution."
 fi

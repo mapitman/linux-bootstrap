@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/pop_os/install-optical-disc-packages)
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/pop_os/install-optical-disc-packages)
 if type nala >/dev/null
 then
     pkg_man="nala"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/initial-dev/ubuntu/install-desktop-packages)
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-desktop-packages)
 
 # Make sure the universe package repository is installed
 # Universe - Community-maintained free and open-source software.
