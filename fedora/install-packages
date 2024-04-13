@@ -26,6 +26,8 @@ sudo dnf install -y \
     dotnet-sdk-8.0 \
     evolution \
     fastfetch \
+    fedora-packager \
+    fedora-review \
     ffmpeg \
     ffmpeg-devel \
     fira-code-fonts \
@@ -58,6 +60,7 @@ sudo dnf install -y \
     mercurial \
     neovim \
     pandoc \
+    pipx \
     powerline-fonts \
     pwgen \
     pylint \
@@ -81,3 +84,11 @@ sudo dnf install -y \
     zsh \
     --allowerasing
 
+# Set up Neovim as an alternative to vim
+sudo update-alternatives --install /usr/bin/vim vim $(which nvim) 10
+
+# Install CLI for installing Gnome Extensions
+pipx install gnome-extensions-cli --system-site-packages
+
+# Install Gnome Extensions
+"$HOME"/.local/bin/gext install paperwm@paperwm.github.com
