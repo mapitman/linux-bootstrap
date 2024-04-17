@@ -26,8 +26,6 @@ sudo dnf install -y \
     dotnet-sdk-8.0 \
     evolution \
     fastfetch \
-    fedora-packager \
-    fedora-review \
     ffmpeg \
     ffmpeg-devel \
     fira-code-fonts \
@@ -73,6 +71,7 @@ sudo dnf install -y \
     ranger \
     rpmdevtools \
     rpmlint \
+    tito \
     tmux \
     twine \
     util-linux-user \
