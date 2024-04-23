@@ -25,22 +25,25 @@ sudo dnf install -y \
     audacity \
     autoconf \
     autogen \
+    bash \
     bat \
     bison \
     cascadia-code-fonts\ \
     code \
     containerd.io \
+    coreutils \
     ctags \
     darktable \
     dialog \
+    dnf \
     docker \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
     dotnet-sdk-6.0 \
-    dotnet-sdk-7.0 \
     dotnet-sdk-8.0 \
+    edk2-tools \
     evolution \
     fastfetch \
     ffmpeg \
@@ -49,6 +52,7 @@ sudo dnf install -y \
     flex \
     fontawesome-fonts \
     gcc\
+    genisoimage \
     gh \
     gimp \
     git-gui \
@@ -66,6 +70,7 @@ sudo dnf install -y \
     gpaste-zsh-completion \
     htop \
     hyprland \
+    install \
     java-latest-openjdk \
     jq \
     kdiff3 \
@@ -82,25 +87,36 @@ sudo dnf install -y \
     pandoc \
     pipx \
     powerline-fonts \
+    procps \
     pwgen \
     pylint \
+    python3 \
     python3-autopep8 \
     python3-netifaces \
     python3-pip \
     python3-psutil \
     python3-pypandoc \
     python3-requests \
+    qemu \
     ranger \
     rpmdevtools \
     rpmlint \
+    spice-gtk-tools \
+    swtpm \
     tito \
     tmux \
     twine \
+    unzip \
+    usbutils \
+    util-linux \
     util-linux-user \
     w3m \
     w3m-img \
     waybar \
+    wget \
     xclip \
+    xdg-user-dirs \
+    xrandr \
     yadm \
     zsh \
     --allowerasing
