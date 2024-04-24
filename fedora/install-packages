@@ -25,7 +25,6 @@ sudo dnf install -y \
     audacity \
     autoconf \
     autogen \
-    bash \
     bat \
     bison \
     cascadia-code-fonts\ \
@@ -35,7 +34,7 @@ sudo dnf install -y \
     ctags \
     darktable \
     dialog \
-    dnf \
+    dnf-plugin-system-upgrade \
     docker \
     docker-buildx-plugin \
     docker-ce \
