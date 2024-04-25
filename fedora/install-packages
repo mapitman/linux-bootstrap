@@ -98,6 +98,7 @@ sudo dnf install -y \
     python3-requests \
     qemu \
     ranger \
+    rclone \
     rpmdevtools \
     rpmlint \
     spice-gtk-tools \
