@@ -23,8 +23,6 @@ build-essential \
 checkinstall \
 cmake \
 dialog \
-dotnet-sdk-6.0 \
-dotnet-sdk-7.0 \
 dotnet-sdk-8.0 \
 flex \
 gh \
