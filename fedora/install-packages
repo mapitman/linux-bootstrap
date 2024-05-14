@@ -33,6 +33,7 @@ sudo dnf install -y \
     coreutils \
     ctags \
     darktable \
+    detox \
     dialog \
     dnf-plugin-system-upgrade \
     docker \
@@ -129,6 +130,9 @@ pipx install gnome-extensions-cli --system-site-packages
 
 # Install Gnome Extensions
 "$HOME"/.local/bin/gext install paperwm@paperwm.github.com
+
+# Install mnamer
+pipx install mnamer
 
 # Enable docker and start it
 sudo systemctl enable docker && sudo systemctl start docker

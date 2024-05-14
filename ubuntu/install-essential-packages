@@ -23,12 +23,14 @@ wget \
 apt-transport-https \
 bat \
 btop \
+detox \
 docker.io \
 git \
 libfuse2 \
 lm-sensors \
 neovim \
 nmap \
+pipx \
 pv \
 pwgen \
 ranger \
@@ -39,6 +41,8 @@ ubuntu-restricted-extras \
 yadm \
 zsh \
 zsh-doc
+
+pipx install mnamer
 
 # Install deb-get
 # https://github.com/wimpysworld/deb-get

@@ -44,6 +44,7 @@ checkinstall \
 cmake \
 code \
 darktable \
+detox \
 dialog \
 docker.io \
 dotnet-sdk-6.0 \
@@ -104,7 +105,6 @@ tar \
 tmux \
 twine \
 ubuntu-restricted-extras \
-ubuntu-restricted-extras \
 universal-ctags \
 wget \
 xclip \
@@ -126,6 +126,8 @@ pipx install gnome-extensions-cli --system-site-packages
 "$HOME"/.local/bin/gext enable clipboard-history@alexsaveau.dev
 "$HOME"/.local/bin/gext enable freon@UshakovVasilii_Github.yahoo.com
 "$HOME"/.local/bin/gext enable paperwm@paperwm.github.com
+
+pipx install mnamer
 
 sudo deb-get install \
 android-messages-desktop \
