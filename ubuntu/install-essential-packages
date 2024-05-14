@@ -34,6 +34,7 @@ pipx \
 pv \
 pwgen \
 ranger \
+rclone \
 renameutils \
 tar \
 tmux \
