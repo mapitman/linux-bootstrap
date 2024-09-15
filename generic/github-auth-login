@@ -2,4 +2,4 @@
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-login)
 
 echo "Auth/Login for GitHub CLI. Skip SSH key upload."
-gh auth login --git-protocol ssh --web --scopes "admin:public_key"
+gh auth login --web --scopes "admin:public_key"
