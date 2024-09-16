@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-add-key)
 
-gh ssh-key add ./.ssh/id_ed25519.pub
+if type ./.ssh/id_ed25519.pub > /dev/null 2>&1
+then
+    gh ssh-key add ./.ssh/id_ed25519.pub
+else
+    gh ssh-key add ./.ssh/id_rsa.pub;
+fi
