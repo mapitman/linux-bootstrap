@@ -43,6 +43,7 @@ bat \
 bison \
 btop \
 build-essential \
+cargo \
 checkinstall \
 cmake \
 code \
@@ -97,7 +98,6 @@ pandoc \
 pipx \
 pv \
 pwgen \
-pyenv \
 pylint \
 python-is-python3 \
 python3-autopep8 \
@@ -113,7 +113,6 @@ universal-ctags \
 wget \
 xclip \
 yadm \
-zellij \
 zlib1g-dev \
 zsh \
 zsh-doc
@@ -136,6 +135,7 @@ pipx install gnome-extensions-cli --system-site-packages
 gsettings get org.gnome.desktop.wm.preferences button-layout
 gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maximize:
 
+cargo install --locked zellij
 pipx install mnamer
 
 sudo deb-get install \
