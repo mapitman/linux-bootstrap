@@ -69,3 +69,7 @@ pipx install gnome-extensions-cli --system-site-packages
 "$HOME"/.local/bin/gext enable clipboard-history@alexsaveau.dev
 "$HOME"/.local/bin/gext enable freon@UshakovVasilii_Github.yahoo.com
 "$HOME"/.local/bin/gext enable paperwm@paperwm.github.com
+
+# Move window buttons to the left
+gsettings get org.gnome.desktop.wm.preferences button-layout
+gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maximize:
