@@ -18,6 +18,9 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 # Install packages
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/fedora/install-packages)
 
+# Lazyvim
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/lazyvim)
+
 # Zsh customizations
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-zsh-customizations)
 

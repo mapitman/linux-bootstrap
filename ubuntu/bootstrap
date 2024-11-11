@@ -23,6 +23,9 @@ sudo apt-get install -y nala
 # Essential
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-essential-packages)
 
+# Lazyvim
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/lazyvim)
+
 # Zsh customizations
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-zsh-customizations)
 
