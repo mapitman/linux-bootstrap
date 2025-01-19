@@ -70,4 +70,9 @@ pipx install gnome-extensions-cli --system-site-packages
 gsettings get org.gnome.desktop.wm.preferences button-layout
 gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maximize:
 
+# Install Chrome Remote Desktop
+curl -O https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
+sudo dpkg --install chrome-remote-desktop_current_amd64.deb
+rm chrome-remote-desktop_current_amd64.deb
+
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/auto-cpufreq)
