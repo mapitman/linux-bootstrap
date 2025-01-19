@@ -69,3 +69,5 @@ pipx install gnome-extensions-cli --system-site-packages
 # Move window buttons to the left
 gsettings get org.gnome.desktop.wm.preferences button-layout
 gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maximize:
+
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/auto-cpufreq)
