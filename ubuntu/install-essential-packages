@@ -47,12 +47,13 @@ pipx install mnamer
 
 # Install deb-get
 # https://github.com/wimpysworld/deb-get
-# Deb-get is currently not working with Ubuntu 24.04
-# curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
-# sudo deb-get update
-# sudo deb-get install \
-# fastfetch \
-# fd
+
+curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
+sudo deb-get update
+sudo deb-get install \
+fastfetch \
+fd \
+mdview
 
 # add current user to docker group
 echo "Adding current user to docker group..."
