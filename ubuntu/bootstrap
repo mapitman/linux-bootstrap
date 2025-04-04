@@ -32,6 +32,9 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 # Zsh customizations
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-zsh-customizations)
 
+# Starship - https://starship.rs/
+curl -sS https://starship.rs/install.sh | sh
+
 # Dev packages
 read -p "Install development tools? " -n 1 -r
 echo
