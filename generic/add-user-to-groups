@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/add-user-to-groups)
+
+# Allow current user to access the serial port
+sudo usermod -aG dialout $USER
+
+# Add current user to docker group
+sudo usermod -aG docker $USER

@@ -47,7 +47,3 @@ sudo deb-get install \
 fastfetch \
 fd \
 mdview
-
-# add current user to docker group
-echo "Adding current user to docker group..."
-sudo usermod -aG docker $USER

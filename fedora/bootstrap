@@ -41,3 +41,6 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 
 # Logout of GitHub
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-logout)
+
+# Add user to groups
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/add-user-to-groups)

@@ -139,7 +139,3 @@ mdview \
 papirus-icon-theme \
 quickemu \
 youtube-music
-
-# add current user to docker group
-echo "Adding current user to docker group..."
-sudo usermod -aG docker $USER

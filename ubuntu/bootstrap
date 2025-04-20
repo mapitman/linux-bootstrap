@@ -89,3 +89,6 @@ then
         source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-makemkv)
     fi
 fi
+
+# Add user to groups
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/add-user-to-groups)
