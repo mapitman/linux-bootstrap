@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/pop_os/install-packages)
 
-if type nala >/dev/null
-then
-    pkg_man="nala"
-else
-    pkg_man="apt-get"
-fi
-
 # Make sure the universe package repository is installed
 # Universe - Community-maintained free and open-source software.
 # https://help.ubuntu.com/community/Repositories/Ubuntu
@@ -17,10 +10,10 @@ sudo add-apt-repository -y universe
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 
 # Update package repos
-sudo "$pkg_man" update
+sudo apt-get update
 
 # Update packages
-sudo "$pkg_man" upgrade -y
+sudo apt-get upgrade -y
 
 # Install deb-get
 # https://github.com/wimpysworld/deb-get
@@ -33,7 +26,7 @@ sudo mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packa
 && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
 # Install packages
-sudo "$pkg_man" install -y \
+sudo apt-get install -y \
 apt-transport-https \
 apt-transport-https \
 audacity \

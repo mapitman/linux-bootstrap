@@ -1,17 +1,10 @@
 #!/usr/bin/env bash
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/pop_os/install-makemkv)
 
-if type nala >/dev/null
-then
-    pkg_man="nala"
-else
-    pkg_man="apt-get"
-fi
-
 # Install makemkv
 if ! type makemkv
 then
-    sudo "$pkg_man" install -y \
+    sudo apt-get install -y \
     build-essential \
     pkg-config \
     libc6-dev \

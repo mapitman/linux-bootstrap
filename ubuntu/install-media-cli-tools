@@ -1,15 +1,8 @@
 #!/usr/bin/env bash
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-media-cli-tools)
 
-if type nala >/dev/null
-then
-    pkg_man="nala"
-else
-    pkg_man="apt-get"
-fi
-
 # Install commandline multimedia tools
-sudo "$pkg_man" install -y \
+sudo apt-get install -y \
 ffmpeg \
 handbrake-cli \
 imagemagick \

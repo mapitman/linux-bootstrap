@@ -14,19 +14,12 @@ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode s
 sudo apt install apt-transport-https
 sudo apt update
 
-if type nala >/dev/null
-then
-    pkg_man="nala"
-else
-    pkg_man="apt-get"
-fi
-
 # Update package repos
-sudo "$pkg_man" install -y apt-transport-https
-sudo "$pkg_man" update
+sudo apt-get install -y apt-transport-https
+sudo apt-get update
 
 # Install graphical desktop packages
-sudo "$pkg_man" install -y \
+sudo apt-get install -y \
 audacity \
 code \
 darktable \

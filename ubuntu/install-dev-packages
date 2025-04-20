@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-dev-packages)
 
-if type nala >/dev/null
-then
-    pkg_man="nala"
-else
-    pkg_man="apt-get"
-fi
-
 # Setup GitHub CLI prerequisites
 sudo mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
 && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
@@ -15,7 +8,7 @@ sudo mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packa
 
 
 # Install dev packages
-sudo "$pkg_man" install -y \
+sudo apt-get install -y \
 autoconf \
 autogen \
 bison \
