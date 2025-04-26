@@ -38,12 +38,12 @@ mesa-utils \
 obs-studio \
 pipx \
 ubuntu-restricted-extras \
-xclip \
+xclip
 
 deb-get update
 deb-get install \
 android-messages-desktop \
-mdview
+mdview \
 papirus-icon-theme \
 quickemu \
 youtube-music \
