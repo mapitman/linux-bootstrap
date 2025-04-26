@@ -21,6 +21,7 @@ sudo apt-get update
 # Install graphical desktop packages
 sudo apt-get install -y \
 audacity \
+chrome-remote-desktop \
 code \
 darktable \
 evolution \
@@ -43,10 +44,10 @@ xclip \
 deb-get update
 deb-get install \
 android-messages-desktop \
-mdview
+mdview \
 papirus-icon-theme \
 quickemu \
-youtube-music \
+youtube-music
 
 pipx install gnome-extensions-cli --system-site-packages
 
@@ -62,11 +63,6 @@ pipx install gnome-extensions-cli --system-site-packages
 # Move window buttons to the left
 gsettings get org.gnome.desktop.wm.preferences button-layout
 gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maximize:
-
-# Install Chrome Remote Desktop
-curl -O https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
-sudo apt install  ./chrome-remote-desktop_current_amd64.deb
-rm chrome-remote-desktop_current_amd64.deb
 
 # Install GhosTTY
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
