@@ -65,19 +65,11 @@ gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maxi
 
 # Install Chrome Remote Desktop
 curl -O https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
-sudo dpkg --install chrome-remote-desktop_current_amd64.deb
+sudo apt install  ./chrome-remote-desktop_current_amd64.deb
 rm chrome-remote-desktop_current_amd64.deb
 
 # Install GhosTTY
-source /etc/os-release
-GHOSTTY_DEB_URL=$(
-   curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases/latest | \
-   grep -oP "https://github.com/mkasberg/ghostty-ubuntu/releases/download/[^\s/]+/ghostty_[^\s/_]+_amd64_${VERSION_ID}.deb"
-)
-GHOSTTY_DEB_FILE=$(basename "$GHOSTTY_DEB_URL")
-curl -LO "$GHOSTTY_DEB_URL"
-sudo dpkg -i "$GHOSTTY_DEB_FILE"
-rm "$GHOSTTY_DEB_FILE"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
 
 # Install auto-cpufreq
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/auto-cpufreq)
