@@ -18,6 +18,7 @@ bat \
 btop \
 detox \
 docker.io \
+fzf \
 git \
 libfuse2 \
 lm-sensors \

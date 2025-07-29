@@ -25,6 +25,9 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 # Starship - https://starship.rs/
 curl -sS https://starship.rs/install.sh | sh
 
+# Zoxide
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+
 # Dev packages
 read -p "Install development tools? " -n 1 -r
 echo
