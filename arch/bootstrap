@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Perform a full bootstrap of Arch Linux, running all of the other scripts
+# in this directory.
+# Usage:
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/arch/bootstrap)
+
+# Check if we're running on Arch Linux
+source /etc/os-release
+if [[ "$ID" != "arch" ]]
+then
+    echo "Not running on Arch Linux or Manjaro, exiting."
+    exit 1
+fi
+
+# Create an ssh key
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/create-ssh-key)
+
+# Install Omarchy
+sudo pacman -Syu --noconfirm wget curl
+wget -qO- https://omarchy.org/install-bare | bash
+
+# Essential
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/arch/install-essential-packages)
+
+# JetBrains Toolbox
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-jetbrains-tools)
+

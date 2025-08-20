@@ -6,3 +6,4 @@ echo "Setting up source code directories..."
 mkdir -p $HOME/src/github
 mkdir -p $HOME/src/gitlab
 mkdir -p $HOME/src/work
+mkdir -p $HOME/src/aur
