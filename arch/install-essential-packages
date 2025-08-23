@@ -39,6 +39,7 @@ rclone \
 renameutils \
 steam \
 starship \
+udisks2 \
 vlc \
 yadm \
 zsh \
