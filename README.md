@@ -17,6 +17,7 @@ To perform a full bootstrap from a minimal Arch install do:
 ```sh
 sudo pacman -S curl && \
   source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/bootstrap)
+```
 
 ## Fedora
 
