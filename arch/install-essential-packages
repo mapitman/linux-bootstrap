@@ -45,14 +45,6 @@ yadm \
 zsh \
 zsh-completions \
 zsh-doc 
-
-# Install AUR helper (yay)
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-cd ..
-rm -rf yay
-yay -Syy --noconfirm
  
 # Install mdview from AUR
 # yay doesn't seem to detect the dependencies for some reason
