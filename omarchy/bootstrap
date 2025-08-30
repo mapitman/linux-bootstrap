@@ -22,4 +22,4 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-jetbrains-tools)
 
 # Zsh customizations
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/customize-zsh)
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-zsh-customizations)
