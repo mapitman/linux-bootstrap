@@ -25,11 +25,10 @@ sudo pacman -S --needed \
 detox \
 firefox \
 git-extras \
-gpg \
 hugo \
 jq \
 lm_sensors \
-nc \
+netcat \
 nmap \
 pv \
 pwgen \
@@ -38,10 +37,9 @@ ranger \
 rclone \
 renameutils \
 steam \
-starship \
-udisks2 \
 vlc \
 yadm \
+zenmap \
 zsh \
 zsh-completions \
 zsh-doc 
