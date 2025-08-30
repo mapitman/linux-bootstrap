@@ -58,6 +58,7 @@ pipx install mnamer
 # Install packages from AUR
 yay -S \
 visual-studio-code-bin \
+git-extras
 
 # Change default shell to zsh
 if [[ "$SHELL" != "/usr/bin/zsh" ]]
