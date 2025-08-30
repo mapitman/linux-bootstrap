@@ -24,7 +24,6 @@ sudo pacman -Syy
 sudo pacman -S --needed \
 detox \
 firefox \
-git-extras \
 hugo \
 jq \
 lm_sensors \
