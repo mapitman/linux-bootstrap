@@ -43,14 +43,6 @@ zenmap \
 zsh \
 zsh-completions \
 zsh-doc 
-
-# Install AUR helper (yay)
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-cd ..
-rm -rf yay
-yay -Syy --noconfirm
  
 # Install mdview from AUR
 # yay doesn't seem to detect the dependencies for some reason
@@ -67,7 +59,6 @@ pipx install mnamer
 
 # Install packages from AUR
 yay -S \
-localsend \
 visual-studio-code-bin \
 
 # Change default shell to zsh
