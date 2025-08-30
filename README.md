@@ -7,10 +7,13 @@ detects the distribution and runs the appropriate set of scripts.
 
 - Arch
 - Fedora
+- Omarchy
 - Pop!_OS
 - Ubuntu
 
 ## Arch
+
+_Note: this is not fully baked yet._ 
 
 To perform a full bootstrap from a minimal Arch install do:
 
@@ -25,6 +28,16 @@ To perform a full bootstrap from a clean Fedora install do:
 
 ```sh
 sudo dnf install curl && \
+  source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/bootstrap)
+```
+
+## Omarchy
+
+[Omarchy](https://omarchy.org) is a custom installer on top of Arch
+
+To perform a full bootstrap from a clean Omarchy install, do:
+
+```sh
   source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/bootstrap)
 ```
 

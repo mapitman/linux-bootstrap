@@ -16,10 +16,6 @@ fi
 # Create an ssh key
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/create-ssh-key)
 
-# Install Omarchy
-sudo pacman -Syu --noconfirm wget curl
-wget -qO- https://omarchy.org/install-bare | bash
-
 # Essential
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/arch/install-essential-packages)
 
