@@ -127,3 +127,6 @@ pipx install mnamer
 
 # Enable docker and start it
 sudo systemctl enable docker && sudo systemctl start docker
+
+# Install Starship prompt
+curl -sS https://starship.rs/install.sh | sh
