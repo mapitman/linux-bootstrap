@@ -18,6 +18,7 @@ sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.re
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 
+sudo dnf update
 sudo dnf -y upgrade
 
 sudo dnf install -y \
@@ -29,7 +30,6 @@ sudo dnf install -y \
     bison \
     cascadia-code-fonts\ \
     code \
-    containerd.io \
     coreutils \
     ctags \
     darktable \
@@ -37,12 +37,7 @@ sudo dnf install -y \
     dialog \
     dnf-plugin-system-upgrade \
     docker \
-    docker-buildx-plugin \
-    docker-ce \
-    docker-ce-cli \
-    docker-compose-plugin \
-    dotnet-sdk-6.0 \
-    dotnet-sdk-8.0 \
+    dotnet-sdk-9.0 \
     edk2-tools \
     evolution \
     fastfetch \
@@ -69,7 +64,6 @@ sudo dnf install -y \
     gpaste-ui \
     gpaste-zsh-completion \
     htop \
-    hyprland \
     install \
     java-latest-openjdk \
     jq \
@@ -113,11 +107,8 @@ sudo dnf install -y \
     util-linux-user \
     w3m \
     w3m-img \
-    waybar \
     wget \
-    xclip \
     xdg-user-dirs \
-    xrandr \
     yadm \
     zsh \
     --allowerasing
