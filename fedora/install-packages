@@ -121,6 +121,9 @@ pipx install gnome-extensions-cli --system-site-packages
 
 # Install Gnome Extensions
 "$HOME"/.local/bin/gext install paperwm@paperwm.github.com
+"$HOME"/.local/bin/gext install clipboard-history@alexsaveau.dev
+
+"$HOME"/.local/bin/gext enable paperwm@paperwm.github.com
 "$HOME"/.local/bin/gext enable clipboard-history@alexsaveau.dev
 
 # Move window buttons to the left
