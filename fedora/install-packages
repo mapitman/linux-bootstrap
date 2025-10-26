@@ -12,10 +12,6 @@ sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-rel
 # https://yadm.io/
 sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_$VERSION_ID/home:TheLocehiliosan:yadm.repo
 
-# Add GitHub CLI repo
-sudo dnf config-manager addrepo https://cli.github.com/packages/rpm/gh-cli.repo
-
-
 # Add docker repo
 sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 
@@ -115,6 +111,7 @@ sudo dnf install -y \
     wget \
     xdg-user-dirs \
     yadm \
+    zoxide \
     zsh \
     --allowerasing
 
