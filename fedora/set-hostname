@@ -1,0 +1,14 @@
+#!/bin/bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/fedora/set-hostname)
+
+# Prompt for the new hostname until a non-empty value is provided
+new_hostname=""
+while [ -z "$new_hostname" ]; do
+    read -p "Enter the new hostname: " new_hostname
+    if [ -z "$new_hostname" ]; then
+        echo "Error: Hostname cannot be empty. Please try again."
+    fi
+done
+
+sudo hostnamectl set-hostname "$new_hostname"
+echo "Hostname has been set to: $(hostnamectl hostname)"
