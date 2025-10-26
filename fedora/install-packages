@@ -53,7 +53,6 @@ sudo dnf install -y \
     gimp \
     git-gui \
     gitk \
-    gnome-shell-extension-blur-my-shell \
     gnome-shell-extension-caffeine \
     gnome-shell-extension-dash-to-dock \
     gnome-shell-extension-freon \
@@ -122,6 +121,11 @@ pipx install gnome-extensions-cli --system-site-packages
 
 # Install Gnome Extensions
 "$HOME"/.local/bin/gext install paperwm@paperwm.github.com
+"$HOME"/.local/bin/gext enable clipboard-history@alexsaveau.dev
+
+# Move window buttons to the left
+gsettings get org.gnome.desktop.wm.preferences button-layout
+gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maximize:
 
 # Install mnamer
 pipx install mnamer
