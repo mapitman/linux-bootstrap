@@ -8,10 +8,6 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 
 sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-# Add YADM repo
-# https://yadm.io/
-sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_$VERSION_ID/home:TheLocehiliosan:yadm.repo
-
 # Add Starhip prompt repo
 # https://starship.rs/
 sudo dnf copr enable atim/starship
