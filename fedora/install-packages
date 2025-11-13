@@ -45,6 +45,7 @@ sudo dnf install -y \
     genisoimage \
     gh \
     gimp \
+    git-extras \
     git-gui \
     gitk \
     gnome-shell-extension-caffeine \
@@ -90,6 +91,7 @@ sudo dnf install -y \
     rclone \
     rpmdevtools \
     rpmlint \
+    shellcheck \
     spice-gtk-tools \
     starship \
     tito \
