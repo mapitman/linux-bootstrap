@@ -40,6 +40,7 @@ sudo dnf install -y \
     fira-code-fonts \
     flex \
     fontawesome-fonts \
+    fuse-libs \
     gcc \
     genisoimage \
     gh \
