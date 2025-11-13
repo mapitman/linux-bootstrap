@@ -1,0 +1,61 @@
+name: Shell CI
+
+on:
+  push:
+    paths:
+      - '**/*.sh'
+      - 'bootstrap'
+      - 'arch/**'
+      - 'ubuntu/**'
+      - 'pop_os/**'
+      - 'fedora/**'
+      - 'generic/**'
+  pull_request:
+    paths:
+      - '**/*.sh'
+      - 'bootstrap'
+      - 'arch/**'
+      - 'ubuntu/**'
+      - 'pop_os/**'
+      - 'fedora/**'
+      - 'generic/**'
+
+jobs:
+  shell-lint:
+    name: Bash syntax + ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Find bash scripts
+        run: |
+          # Find files that contain a bash shebang and save the list
+          mkdir -p .github/tmp
+          find . -type f -not -path './.git/*' -exec grep -Il '^#!.*\bbash\b' {} \; > .github/tmp/bash-files || true
+          echo "Found files:" && cat .github/tmp/bash-files || true
+
+      - name: Install ShellCheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Run bash -n (syntax check)
+        run: |
+          FILES=.github/tmp/bash-files
+          if [ -s "$FILES" ]; then
+            while IFS= read -r f; do
+              echo "Checking $f"
+              bash -n "$f"
+            done < "$FILES"
+          else
+            echo "No bash scripts found"
+          fi
+
+      - name: Run ShellCheck (errors only)
+        run: |
+          FILES=.github/tmp/bash-files
+          if [ -s "$FILES" ]; then
+            # Only fail the job on ShellCheck ERROR severity (ignore warnings/infos)
+            xargs -a "$FILES" shellcheck -x --severity=error
+          else
+            echo "No bash scripts to shellcheck"
+          fi

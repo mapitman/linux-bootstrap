@@ -1,0 +1,13 @@
+# Repository-specific ShellCheck configuration for linux-bootstrap
+# The repo intentionally uses dynamic sourcing (curl | source) and some
+# helper variables that appear unused to shellcheck, so exclude the
+# noisy warnings below. Keep this minimal and revisit if new rules
+# should be suppressed or tightened.
+#
+# - SC1090: Can't follow non-constant source. We intentionally source
+#   remote snippets via `source <(curl ...)` in bootstrappers.
+# - SC1091: Can't follow non-constant source during sourcing from files
+#   (suppress because callers rely on runtime fetching).
+# - SC2034: Variables that look unused but are intentionally provided
+#   for external consumers or pattern matching.
+exclude=SC1090,SC1091,SC2034

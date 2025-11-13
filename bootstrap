@@ -18,7 +18,7 @@ then
 elif [[ -d $HOME/.config/omarchy ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/omarchy/bootstrap)
-elif [["$ID" == "arch" ]]
+elif [[ "$ID" == "arch" ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/arch/bootstrap)
 else
