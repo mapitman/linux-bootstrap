@@ -26,8 +26,8 @@ jobs:
       - name: Run ShellCheck
         run: |
           sudo apt-get update && sudo apt-get install -y shellcheck
-          find ubuntu/ generic/ -type f ! -name "*.md" -exec shellcheck -x {} \; || true
-          shellcheck bootstrap || true
+          find ubuntu/ generic/ -type f ! -name "*.md" -exec shellcheck -x --severity=error {} \;
+          shellcheck -x --severity=error bootstrap
 
   docker-test:
     name: Docker Test (Ubuntu ${{ matrix.ubuntu-version }})
@@ -62,26 +62,3 @@ jobs:
             bash -n ubuntu/install-desktop-packages && \
             echo 'All syntax checks passed'
           "
-
-  smoke-test:
-    name: Smoke Test - Essential Packages
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Test essential packages installation
-        run: |
-          # Test the script can run without errors
-          sudo bash ubuntu/install-essential-packages || echo "Expected to fail on non-fresh system"
-          
-      - name: Verify syntax of all scripts
-        run: |
-          bash -n bootstrap
-          bash -n ubuntu/bootstrap
-          for script in ubuntu/install-*; do
-            [[ "$script" != *.md ]] && bash -n "$script"
-          done
-          for script in generic/*; do
-            [[ "$script" != *.md ]] && bash -n "$script"
-          done

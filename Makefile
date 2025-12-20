@@ -4,7 +4,7 @@
 .DEFAULT_GOAL := help
 
 # Ubuntu versions to test
-UBUNTU_VERSIONS := 20.04 22.04 24.04
+UBUNTU_VERSIONS := 24.04 25.10
 
 help: ## Show this help message
 	@echo "Linux Bootstrap Testing Makefile"
@@ -14,15 +14,15 @@ help: ## Show this help message
 	@echo "Available targets:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-test: test-auto ## Run automated tests (default: Ubuntu 22.04)
+test: test-auto ## Run automated tests (default: Ubuntu 24.04)
 
-test-auto: ## Run automated tests on Ubuntu 22.04
+test-auto: ## Run automated tests on Ubuntu 24.04
 	@./test/run-tests.sh auto
 
 test-interactive: ## Start interactive Docker container for manual testing
 	@./test/run-tests.sh interactive
 
-test-all: ## Run tests on all Ubuntu versions (20.04, 22.04, 24.04)
+test-all: ## Run tests on all Ubuntu versions (24.04, 25.10)
 	@./test/run-tests.sh all
 
 test-syntax: ## Run syntax checks on all bash scripts
@@ -33,10 +33,10 @@ lint: shellcheck ## Run all linting tools
 shellcheck: ## Run shellcheck on all scripts
 	@echo "Running shellcheck..."
 	@if command -v shellcheck >/dev/null 2>&1; then \
-		shellcheck bootstrap || true; \
-		shellcheck ubuntu/bootstrap || true; \
-		find ubuntu/ -type f -name 'install-*' -exec shellcheck {} \; || true; \
-		find generic/ -type f -exec shellcheck {} \; || true; \
+		shellcheck -x --severity=error bootstrap; \
+		shellcheck -x --severity=error ubuntu/bootstrap; \
+		find ubuntu/ -type f -name 'install-*' -exec shellcheck -x --severity=error {} \+; \
+		find generic/ -type f -exec shellcheck -x --severity=error {} \+; \
 	else \
 		echo "shellcheck not installed. Install with: sudo apt-get install shellcheck"; \
 		exit 1; \

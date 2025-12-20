@@ -39,6 +39,7 @@ echo ""
     "
 } 2>&1 | tee -a "$OUTPUT_FILE"
 
+# Note: PIPESTATUS is bash-specific; the /bin/bash shebang above is required.
 EXIT_CODE=${PIPESTATUS[0]}
 
 echo ""

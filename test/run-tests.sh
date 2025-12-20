@@ -1,6 +1,6 @@
 #!/bin/bash
 # Quick test runner for Ubuntu bootstrap scripts
-# Usage: ./test/run-tests.sh [interactive|auto|all]
+# Usage: ./test/run-tests.sh [interactive|auto|all|syntax|clean]
 
 set -e
 
@@ -53,22 +53,22 @@ case "$MODE" in
     auto|a)
         print_header "Running Automated Tests"
         
-        # Test Ubuntu 22.04
-        print_header "Testing Ubuntu 22.04 LTS"
+        # Test Ubuntu 24.04
+        print_header "Testing Ubuntu 24.04 LTS"
         docker build \
-            --build-arg UBUNTU_VERSION=22.04 \
+            --build-arg UBUNTU_VERSION=24.04 \
             -f test/docker/Dockerfile.ubuntu-noninteractive \
-            -t ubuntu-bootstrap-test:22.04 \
+            -t ubuntu-bootstrap-test:24.04 \
             .
-        docker run --rm ubuntu-bootstrap-test:22.04
+        docker run --rm ubuntu-bootstrap-test:24.04
         
-        echo -e "\n${GREEN}✓ Ubuntu 22.04 tests passed${NC}\n"
+        echo -e "\n${GREEN}✓ Ubuntu 24.04 tests passed${NC}\n"
         ;;
     
     all)
         print_header "Running Comprehensive Tests"
         
-        VERSIONS=("20.04" "22.04" "24.04")
+        VERSIONS=("24.04" "25.10")
         FAILED=()
         
         for VERSION in "${VERSIONS[@]}"; do
@@ -120,6 +120,7 @@ case "$MODE" in
         
         if command -v shellcheck &> /dev/null; then
             print_header "Running ShellCheck"
+            # ShellCheck is treated as advisory linting here; syntax errors still fail via set -e
             shellcheck bootstrap ubuntu/bootstrap || print_warning "ShellCheck found issues"
         else
             print_warning "shellcheck not installed, skipping advanced linting"
@@ -134,19 +135,19 @@ case "$MODE" in
         ;;
     
     *)
-        echo "Usage: $0 [interactive|auto|all|syntax|clean]"
+        echo "Usage: ./test/run-tests.sh [interactive|auto|all|syntax|clean]"
         echo ""
         echo "Modes:"
         echo "  interactive (i) - Start interactive Docker container for manual testing"
-        echo "  auto (a)       - Run automated tests on Ubuntu 22.04 (default)"
-        echo "  all            - Run tests on all Ubuntu versions (20.04, 22.04, 24.04)"
+        echo "  auto (a)       - Run automated tests on Ubuntu 24.04 (default)"
+        echo "  all            - Run tests on Ubuntu 24.04 and 25.10"
         echo "  syntax         - Run syntax checks and linting only"
         echo "  clean          - Remove all test Docker images"
         echo ""
         echo "Examples:"
-        echo "  $0 auto          # Quick automated test"
-        echo "  $0 interactive   # Manual testing"
-        echo "  $0 all          # Full test suite"
+        echo "  ./test/run-tests.sh auto          # Quick automated test"
+        echo "  ./test/run-tests.sh interactive   # Manual testing"
+        echo "  ./test/run-tests.sh all           # Full test suite"
         exit 1
         ;;
 esac
