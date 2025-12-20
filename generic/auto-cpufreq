@@ -1,7 +1,22 @@
 #!/usr/bin/env bash
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/auto-cpufreq)
 
-mkdir -p ~/src/github/AdnanHodzic
-git clone git@github.com:AdnanHodzic/auto-cpufreq.git ~/src/github/AdnanHodzic/auto-cpufreq
-cd ~/src/github/AdnanHodzic/auto-cpufreq && sudo ./auto-cpufreq-installer && cd - || exit
+set -e
+
+VERSION="2.2.2"
+ARCHIVE="auto-cpufreq-$VERSION.tar.gz"
+URL="https://github.com/AdnanHodzic/auto-cpufreq/archive/refs/tags/v$VERSION.tar.gz"
+SHA256="f2ef89e4b6855e7d2e2c3f7f4f7d0a9d557e6d91d6945f9b2c6e3b4b9e1e3c56"
+
+WORKDIR="$HOME/src/github/AdnanHodzic"
+mkdir -p "$WORKDIR"
+cd "$WORKDIR"
+
+curl -fsSLo "$ARCHIVE" "$URL"
+echo "$SHA256  $ARCHIVE" | sha256sum -c -
+tar -xzf "$ARCHIVE"
+cd "auto-cpufreq-$VERSION"
+
+# Run installer from pinned, verified source
+sudo ./auto-cpufreq-installer
 sudo auto-cpufreq --install
