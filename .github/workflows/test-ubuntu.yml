@@ -80,8 +80,8 @@ jobs:
           bash -n bootstrap
           bash -n ubuntu/bootstrap
           for script in ubuntu/install-*; do
-            bash -n "$script"
+            [[ "$script" != *.md ]] && bash -n "$script"
           done
           for script in generic/*; do
-            bash -n "$script"
+            [[ "$script" != *.md ]] && bash -n "$script"
           done

@@ -30,9 +30,9 @@ jobs:
 
       - name: Find bash scripts
         run: |
-          # Find files that contain a bash shebang and save the list
+          # Find files that contain a bash shebang and save the list (exclude markdown)
           mkdir -p .github/tmp
-          find . -type f -not -path './.git/*' -exec grep -Il '^#!.*\bbash\b' {} \; > .github/tmp/bash-files || true
+          find . -type f -not -path './.git/*' ! -name '*.md' -exec grep -Il '^#!.*\bbash\b' {} \; > .github/tmp/bash-files || true
           echo "Found files:" && cat .github/tmp/bash-files || true
 
       - name: Install ShellCheck
