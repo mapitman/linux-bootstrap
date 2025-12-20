@@ -35,7 +35,8 @@ tmux \
 ubuntu-restricted-extras \
 yadm \
 zsh \
-zsh-doc
+zsh-doc \
+zoxide
 
 pipx install mnamer
 

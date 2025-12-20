@@ -31,19 +31,18 @@ WORKDIR /home/testuser
 COPY --chown=testuser:testuser . /home/testuser/linux-bootstrap
 
 # Create a non-interactive test runner
-RUN cat <<'EOF' > /home/testuser/run-tests.sh && chmod +x /home/testuser/run-tests.sh
-#!/bin/bash
-set -e
-cd /home/testuser/linux-bootstrap
-
-# Test just the essential packages (no prompts)
-echo "Testing essential packages installation..."
-bash ubuntu/install-essential-packages
-
-echo ""
-echo "================================="
-echo "Essential packages test completed"
-echo "================================="
-EOF
+RUN echo '#!/bin/bash' > /home/testuser/run-tests.sh && \
+    echo 'set -e' >> /home/testuser/run-tests.sh && \
+    echo 'cd /home/testuser/linux-bootstrap' >> /home/testuser/run-tests.sh && \
+    echo '' >> /home/testuser/run-tests.sh && \
+    echo '# Test just the essential packages (no prompts)' >> /home/testuser/run-tests.sh && \
+    echo 'echo "Testing essential packages installation..."' >> /home/testuser/run-tests.sh && \
+    echo 'bash ubuntu/install-essential-packages' >> /home/testuser/run-tests.sh && \
+    echo '' >> /home/testuser/run-tests.sh && \
+    echo 'echo ""' >> /home/testuser/run-tests.sh && \
+    echo 'echo "================================="' >> /home/testuser/run-tests.sh && \
+    echo 'echo "Essential packages test completed"' >> /home/testuser/run-tests.sh && \
+    echo 'echo "================================="' >> /home/testuser/run-tests.sh && \
+    chmod +x /home/testuser/run-tests.sh
 
 CMD ["/home/testuser/run-tests.sh"]
