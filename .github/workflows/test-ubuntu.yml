@@ -1,0 +1,64 @@
+name: Test Ubuntu Bootstrap
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'ubuntu/**'
+      - 'generic/**'
+      - 'bootstrap'
+      - '.github/workflows/test-ubuntu.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'ubuntu/**'
+      - 'generic/**'
+      - 'bootstrap'
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: ShellCheck Linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run ShellCheck
+        run: |
+          sudo apt-get update && sudo apt-get install -y shellcheck
+          find ubuntu/ generic/ -type f ! -name "*.md" -exec shellcheck -x --severity=error {} \;
+          shellcheck -x --severity=error bootstrap
+
+  docker-test:
+    name: Docker Test (Ubuntu ${{ matrix.ubuntu-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ubuntu-version: ['24.04', '25.10']
+      fail-fast: false
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build test image
+        run: |
+          docker build \
+            --build-arg UBUNTU_VERSION=${{ matrix.ubuntu-version }} \
+            -f test/docker/Dockerfile.ubuntu-noninteractive \
+            -t ubuntu-bootstrap-test:${{ matrix.ubuntu-version }} \
+            .
+      
+      - name: Run bootstrap tests
+        run: |
+          docker run --rm ubuntu-bootstrap-test:${{ matrix.ubuntu-version }}
+      
+      - name: Test individual scripts
+        run: |
+          docker run --rm ubuntu-bootstrap-test:${{ matrix.ubuntu-version }} bash -c "
+            cd /home/testuser/linux-bootstrap && \
+            bash -n ubuntu/bootstrap && \
+            bash -n ubuntu/install-essential-packages && \
+            bash -n ubuntu/install-dev-packages && \
+            bash -n ubuntu/install-desktop-packages && \
+            echo 'All syntax checks passed'
+          "

@@ -1,0 +1,49 @@
+# Non-interactive testing Dockerfile for Ubuntu bootstrap scripts
+# This version automatically runs the bootstrap with "no" answers to all prompts
+# Usage:
+#   docker build -f test/docker/Dockerfile.ubuntu-noninteractive -t ubuntu-bootstrap-test-auto .
+#   docker run --rm ubuntu-bootstrap-test-auto
+
+ARG UBUNTU_VERSION=22.04
+FROM ubuntu:${UBUNTU_VERSION}
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+
+# Install minimal dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    sudo \
+    openssh-client \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create a test user with sudo privileges
+RUN useradd -m -s /bin/bash testuser && \
+    echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER testuser
+WORKDIR /home/testuser
+
+# Copy bootstrap scripts
+COPY --chown=testuser:testuser . /home/testuser/linux-bootstrap
+
+# Create a non-interactive test runner
+RUN cat <<'EOF' > /home/testuser/run-tests.sh && chmod +x /home/testuser/run-tests.sh
+#!/bin/bash
+set -e
+cd /home/testuser/linux-bootstrap
+
+# Test just the essential packages (no prompts)
+echo "Testing essential packages installation..."
+bash ubuntu/install-essential-packages
+
+echo ""
+echo "================================="
+echo "Essential packages test completed"
+echo "================================="
+EOF
+
+CMD ["/home/testuser/run-tests.sh"]

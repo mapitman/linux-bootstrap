@@ -1,0 +1,36 @@
+# Testing Dockerfile for Ubuntu bootstrap scripts
+# Usage:
+#   docker build -f test/docker/Dockerfile.ubuntu -t ubuntu-bootstrap-test .
+#   docker run -it --rm ubuntu-bootstrap-test
+
+ARG UBUNTU_VERSION=22.04
+FROM ubuntu:${UBUNTU_VERSION}
+
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+
+# Install minimal dependencies needed for the bootstrap process
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    sudo \
+    openssh-client \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create a test user with sudo privileges (mimics a fresh Ubuntu install)
+RUN useradd -m -s /bin/bash testuser && \
+    echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Switch to test user
+USER testuser
+WORKDIR /home/testuser
+
+# Copy bootstrap scripts into the container for local testing
+# (alternatively, they'll be sourced from GitHub)
+COPY --chown=testuser:testuser . /home/testuser/linux-bootstrap
+
+# Default command: start bash for interactive testing
+CMD ["/bin/bash"]

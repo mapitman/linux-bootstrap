@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/auto-cpufreq)
-
-mkdir -p ~/src/github/AdnanHodzic
-git clone git@github.com:AdnanHodzic/auto-cpufreq.git ~/src/github/AdnanHodzic/auto-cpufreq
-cd ~/src/github/AdnanHodzic/auto-cpufreq && sudo ./auto-cpufreq-installer && cd -
-sudo auto-cpufreq --install

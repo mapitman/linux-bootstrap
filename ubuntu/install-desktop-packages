@@ -70,6 +70,3 @@ rm chrome-remote-desktop_current_amd64.deb
 
 # Install GhosTTY
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
-
-# Install auto-cpufreq
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/auto-cpufreq)
