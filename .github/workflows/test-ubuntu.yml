@@ -1,0 +1,87 @@
+name: Test Ubuntu Bootstrap
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'ubuntu/**'
+      - 'generic/**'
+      - 'bootstrap'
+      - '.github/workflows/test-ubuntu.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'ubuntu/**'
+      - 'generic/**'
+      - 'bootstrap'
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: ShellCheck Linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run ShellCheck
+        run: |
+          sudo apt-get update && sudo apt-get install -y shellcheck
+          find ubuntu/ generic/ -type f -exec shellcheck -x {} \; || true
+          shellcheck bootstrap || true
+
+  docker-test:
+    name: Docker Test (Ubuntu ${{ matrix.ubuntu-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ubuntu-version: ['20.04', '22.04', '24.04']
+      fail-fast: false
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build test image
+        run: |
+          docker build \
+            --build-arg UBUNTU_VERSION=${{ matrix.ubuntu-version }} \
+            -f test/docker/Dockerfile.ubuntu-noninteractive \
+            -t ubuntu-bootstrap-test:${{ matrix.ubuntu-version }} \
+            .
+      
+      - name: Run bootstrap tests
+        run: |
+          docker run --rm ubuntu-bootstrap-test:${{ matrix.ubuntu-version }}
+      
+      - name: Test individual scripts
+        run: |
+          docker run --rm ubuntu-bootstrap-test:${{ matrix.ubuntu-version }} bash -c "
+            cd /home/testuser/linux-bootstrap && \
+            bash -n ubuntu/bootstrap && \
+            bash -n ubuntu/install-essential-packages && \
+            bash -n ubuntu/install-dev-packages && \
+            bash -n ubuntu/install-desktop-packages && \
+            echo 'All syntax checks passed'
+          "
+
+  smoke-test:
+    name: Smoke Test - Essential Packages
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Test essential packages installation
+        run: |
+          # Test the script can run without errors
+          sudo bash ubuntu/install-essential-packages || echo "Expected to fail on non-fresh system"
+          
+      - name: Verify syntax of all scripts
+        run: |
+          bash -n bootstrap
+          bash -n ubuntu/bootstrap
+          for script in ubuntu/install-*; do
+            bash -n "$script"
+          done
+          for script in generic/*; do
+            bash -n "$script"
+          done

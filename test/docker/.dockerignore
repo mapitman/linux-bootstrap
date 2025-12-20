@@ -1,0 +1,6 @@
+# Don't copy test artifacts into test containers
+test/
+.git/
+.github/
+*.md
+LICENSE
