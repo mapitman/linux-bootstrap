@@ -4,7 +4,7 @@
 # Install makemkv
 if ! type makemkv
 then
-    MAKEMKV_VERSION="1.17.6"
+    MAKEMKV_VERSION="1.18.2"
     mkdir -p /tmp/makemkv-build
     pushd /tmp/makemkv-build || exit
 
@@ -29,7 +29,8 @@ then
     qtbase5-dev \
     zlib1g-dev \
     yasm \
-    libfdk-aac-dev
+    libfdk-aac-dev \
+    nasm
 
     pushd /tmp/makemkv-build/ffmpeg || exit
     ./configure --prefix=/tmp/ffmpeg --enable-static --disable-shared --enable-pic --enable-libfdk-aac
