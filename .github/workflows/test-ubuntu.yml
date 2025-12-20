@@ -26,7 +26,7 @@ jobs:
       - name: Run ShellCheck
         run: |
           sudo apt-get update && sudo apt-get install -y shellcheck
-          find ubuntu/ generic/ -type f -exec shellcheck -x {} \; || true
+          find ubuntu/ generic/ -type f ! -name "*.md" -exec shellcheck -x {} \; || true
           shellcheck bootstrap || true
 
   docker-test:
