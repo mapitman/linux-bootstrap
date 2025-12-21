@@ -14,6 +14,7 @@ apt-transport-https \
 lsb-release \
 wget \
 apt-transport-https \
+curl \
 bat \
 btop \
 detox \
@@ -35,16 +36,23 @@ tmux \
 ubuntu-restricted-extras \
 yadm \
 zsh \
-zsh-doc
+zsh-doc \
+
+# Install zoxide/starship only on Ubuntu 25.10+, as they're not available in 24.04 repos
+UBUNTU_VERSION=$(lsb_release -rs 2>/dev/null || echo "24.04")
+if awk -v ver="$UBUNTU_VERSION" 'BEGIN {exit !(ver >= 25.10)}'; then
+	sudo apt-get install -y zoxide starship fastfetch
+fi
 
 pipx install mnamer
 
-# Install deb-get
-# https://github.com/wimpysworld/deb-get
-
-curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
-sudo deb-get update
-sudo deb-get install \
-fastfetch \
-fd \
-mdview
+# Install latest mdview .deb from the GitHub API (amd64)
+MDVIEW_DEB_URL=$(curl -fsSL "https://api.github.com/repos/mapitman/mdview/releases/latest" | grep '"browser_download_url"' | grep 'amd64.*\.deb' | head -1 | cut -d'"' -f4)
+if [ -n "$MDVIEW_DEB_URL" ]; then
+	MDVIEW_TMP_DEB="$(mktemp --suffix=.deb)"
+	wget -q "$MDVIEW_DEB_URL" -O "$MDVIEW_TMP_DEB"
+	sudo apt install -y "$MDVIEW_TMP_DEB"
+	rm -f "$MDVIEW_TMP_DEB"
+else
+	echo "mdview: unable to determine latest .deb URL" >&2
+fi
