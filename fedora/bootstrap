@@ -21,9 +21,6 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 # Install packages
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/fedora/install-packages)
 
-# Lazyvim
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/lazyvim)
-
 # Zsh customizations
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-zsh-customizations)
 
@@ -35,12 +32,6 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 
 # Authenticate to GitHub
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-login)
-
-# Add ssh key to GitHaub
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-add-key)
-
-# Logout of GitHub
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-logout)
 
 # Add user to groups
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/add-user-to-groups)

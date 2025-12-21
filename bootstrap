@@ -15,9 +15,6 @@ then
 elif [[ "$ID" == "fedora" ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/fedora/bootstrap)
-elif [[ -d $HOME/.config/omarchy ]]
-then
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/omarchy/bootstrap)
 elif [[ "$ID" == "arch" ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/arch/bootstrap)
