@@ -19,9 +19,6 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 # Install packages
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/pop_os/install-packages)
 
-# Lazyvim
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/lazyvim)
-
 # Homebrew
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/homebrew)
 
@@ -51,9 +48,6 @@ fi
 
 # Authenticate to GitHub
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-login)
-
-# Add ssh key to GitHub
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-add-key)
 
 # Logout of GitHub
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-logout)

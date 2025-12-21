@@ -19,12 +19,6 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 # Essential
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-essential-packages)
 
-# Lazyvim
-source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/lazyvim)
-
-# Starship - https://starship.rs/
-curl -sS https://starship.rs/install.sh | sh
-
 # Dev packages
 read -p "Install development tools? " -n 1 -r
 echo
@@ -45,12 +39,6 @@ then
 
     # Authenticate to GitHub
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-login)
-
-    # Add ssh key to GitHaub
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-add-key)
-
-    # Logout of GitHub
-    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-logout)
 fi
 
 # Desktop packages

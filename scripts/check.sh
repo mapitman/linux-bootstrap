@@ -8,7 +8,7 @@ TMPFILE=$(mktemp)
 trap 'rm -f "$TMPFILE"' EXIT
 
 echo "Finding bash scripts (shebang contains 'bash')..."
-find . -type f -not -path './.git/*' -exec grep -Il '^#!.*\bbash\b' {} \; > "$TMPFILE" || true
+find . -type f -not -path './.git/*' ! -name '*.md' -exec grep -Il '^#!.*\bbash\b' {} \; > "$TMPFILE" || true
 
 if [ ! -s "$TMPFILE" ]; then
   echo "No bash scripts found."
