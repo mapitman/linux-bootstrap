@@ -3,7 +3,9 @@
 
 # Install JetBrains Toolbox
 # https://www.jetbrains.com/lp/toolbox/
-base_filename=jetbrains-toolbox-3.2.0.65851
+# NOTE: Update this version periodically when a new JetBrains Toolbox release is desired.
+JETBRAINS_TOOLBOX_VERSION=3.2.0.65851
+base_filename="jetbrains-toolbox-$JETBRAINS_TOOLBOX_VERSION"
 
 curl -L -o /tmp/$base_filename.tar.gz https://download.jetbrains.com/toolbox/$base_filename.tar.gz
 tar xzvf /tmp/$base_filename.tar.gz -C /tmp
