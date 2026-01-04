@@ -10,6 +10,4 @@ base_filename="jetbrains-toolbox-$JETBRAINS_TOOLBOX_VERSION"
 curl -L -o /tmp/$base_filename.tar.gz https://download.jetbrains.com/toolbox/$base_filename.tar.gz
 tar xzvf /tmp/$base_filename.tar.gz -C /tmp
 "/tmp/$base_filename/bin/jetbrains-toolbox" >/dev/null 2>&1 &
-# rm "/tmp/$base_filename.tar.gz"
-# rm -rf "/tmp/jetbrains-toolbox-$base_filename"
 echo "JetBrains Toolbox installation initiated. Please complete the setup through the application interface."
