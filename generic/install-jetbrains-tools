@@ -3,10 +3,18 @@
 
 # Install JetBrains Toolbox
 # https://www.jetbrains.com/lp/toolbox/
-base_filename=jetbrains-toolbox-1.28.1.15219
+# NOTE: Update this version periodically when a new JetBrains Toolbox release is desired.
+JETBRAINS_TOOLBOX_VERSION=3.2.0.65851
+base_filename="jetbrains-toolbox-$JETBRAINS_TOOLBOX_VERSION"
 
 curl -L -o /tmp/$base_filename.tar.gz https://download.jetbrains.com/toolbox/$base_filename.tar.gz
 tar xzvf /tmp/$base_filename.tar.gz -C /tmp
-mkdir -p "$HOME"/.local/bin/
-mv /tmp/$base_filename/jetbrains-toolbox "$HOME"/.local/bin/
-rm /tmp/$base_filename.tar.gz
+
+if [ -f "/tmp/$base_filename/bin/jetbrains-toolbox" ]; then
+    echo "JetBrains Toolbox downloaded and extracted successfully."
+else
+    echo "Failed to download or extract JetBrains Toolbox."
+    exit 1
+fi
+"/tmp/$base_filename/bin/jetbrains-toolbox" >/dev/null 2>&1 &
+echo "JetBrains Toolbox installation initiated. Please complete the setup through the application interface."
