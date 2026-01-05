@@ -57,5 +57,5 @@ else
 	echo "mdview: unable to determine latest .deb URL" >&2
 fi
 
-# Install Catpuccin theme for tmux
+# Install Catppuccin theme for tmux
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-tmux-catppuccin-theme)
