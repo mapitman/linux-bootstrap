@@ -56,3 +56,6 @@ if [ -n "$MDVIEW_DEB_URL" ]; then
 else
 	echo "mdview: unable to determine latest .deb URL" >&2
 fi
+
+# Install Catppuccin theme for tmux
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-tmux-catppuccin-theme)
