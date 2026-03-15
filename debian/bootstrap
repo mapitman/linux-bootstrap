@@ -19,6 +19,9 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 # Install packages
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-packages)
 
+# Install eza themes
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-eza-themes)
+
 # Desktop packages
 read -p "Install desktop apps? " -n 1 -r
 echo

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-eza-themes)
+
+git clone https://github.com/eza-community/eza-themes.git ~/.local/share/eza-themes
+mkdir -p ~/.config/eza
+ln -sf "$HOME/.local/share/eza-themes/themes/catppuccin-mocha.yml" ~/.config/eza/theme.yml
