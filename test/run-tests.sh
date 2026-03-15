@@ -1,6 +1,6 @@
 #!/bin/bash
-# Quick test runner for Ubuntu bootstrap scripts
-# Usage: ./test/run-tests.sh [interactive|auto|all|syntax|clean]
+# Quick test runner for Ubuntu and Debian bootstrap scripts
+# Usage: ./test/run-tests.sh [interactive|auto|all|debian|debian-all|syntax|clean]
 
 set -e
 
@@ -64,6 +64,20 @@ case "$MODE" in
         
         echo -e "\n${GREEN}✓ Ubuntu 24.04 tests passed${NC}\n"
         ;;
+
+    debian|d)
+        print_header "Running Debian Automated Tests"
+
+        print_header "Testing Debian bookworm"
+        docker build \
+            --build-arg DEBIAN_VERSION=bookworm \
+            -f test/docker/Dockerfile.debian-noninteractive \
+            -t debian-bootstrap-test:bookworm \
+            .
+        docker run --rm debian-bootstrap-test:bookworm
+
+        echo -e "\n${GREEN}✓ Debian bookworm tests passed${NC}\n"
+        ;;
     
     all)
         print_header "Running Comprehensive Tests"
@@ -96,6 +110,37 @@ case "$MODE" in
             exit 1
         fi
         ;;
+
+    debian-all)
+        print_header "Running Comprehensive Debian Tests"
+
+        VERSIONS=("bookworm" "trixie")
+        FAILED=()
+
+        for VERSION in "${VERSIONS[@]}"; do
+            print_header "Testing Debian $VERSION"
+
+            if docker build \
+                --build-arg DEBIAN_VERSION="$VERSION" \
+                -f test/docker/Dockerfile.debian-noninteractive \
+                -t debian-bootstrap-test:"$VERSION" \
+                . && \
+               docker run --rm debian-bootstrap-test:"$VERSION"; then
+                echo -e "\n${GREEN}✓ Debian $VERSION tests passed${NC}\n"
+            else
+                print_error "Debian $VERSION tests failed"
+                FAILED+=("$VERSION")
+            fi
+        done
+
+        print_header "Test Summary"
+        if [ ${#FAILED[@]} -eq 0 ]; then
+            echo -e "${GREEN}All Debian tests passed!${NC}"
+        else
+            echo -e "${RED}Failed versions: ${FAILED[*]}${NC}"
+            exit 1
+        fi
+        ;;
     
     syntax)
         print_header "Running Syntax Checks"
@@ -103,9 +148,16 @@ case "$MODE" in
         echo "Checking bootstrap scripts..."
         bash -n bootstrap
         bash -n ubuntu/bootstrap
+        bash -n debian/bootstrap
         
         echo "Checking ubuntu scripts..."
         for script in ubuntu/install-*; do
+            echo "  Checking $script"
+            bash -n "$script"
+        done
+
+        echo "Checking debian scripts..."
+        for script in debian/*; do
             echo "  Checking $script"
             bash -n "$script"
         done
@@ -121,7 +173,7 @@ case "$MODE" in
         if command -v shellcheck &> /dev/null; then
             print_header "Running ShellCheck"
             # ShellCheck is treated as advisory linting here; syntax errors still fail via set -e
-            shellcheck bootstrap ubuntu/bootstrap || print_warning "ShellCheck found issues"
+            shellcheck bootstrap ubuntu/bootstrap debian/bootstrap debian/install-packages || print_warning "ShellCheck found issues"
         else
             print_warning "shellcheck not installed, skipping advanced linting"
             echo "Install with: sudo apt-get install shellcheck"
@@ -130,22 +182,25 @@ case "$MODE" in
     
     clean)
         print_header "Cleaning Up Test Images"
-        docker images | grep ubuntu-bootstrap-test | awk '{print $3}' | xargs -r docker rmi
+        docker images | grep -E 'ubuntu-bootstrap-test|debian-bootstrap-test' | awk '{print $3}' | xargs -r docker rmi
         echo -e "${GREEN}Cleanup complete${NC}"
         ;;
     
     *)
-        echo "Usage: ./test/run-tests.sh [interactive|auto|all|syntax|clean]"
+        echo "Usage: ./test/run-tests.sh [interactive|auto|all|debian|debian-all|syntax|clean]"
         echo ""
         echo "Modes:"
         echo "  interactive (i) - Start interactive Docker container for manual testing"
         echo "  auto (a)       - Run automated tests on Ubuntu 24.04 (default)"
         echo "  all            - Run tests on Ubuntu 24.04 and 25.10"
+        echo "  debian (d)     - Run automated tests on Debian bookworm"
+        echo "  debian-all     - Run tests on Debian bookworm and trixie"
         echo "  syntax         - Run syntax checks and linting only"
         echo "  clean          - Remove all test Docker images"
         echo ""
         echo "Examples:"
         echo "  ./test/run-tests.sh auto          # Quick automated test"
+        echo "  ./test/run-tests.sh debian        # Quick Debian test"
         echo "  ./test/run-tests.sh interactive   # Manual testing"
         echo "  ./test/run-tests.sh all           # Full test suite"
         exit 1

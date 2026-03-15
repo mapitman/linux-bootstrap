@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-packages)
+
+# Update package repos
+sudo apt-get update
+
+# Update packages
+sudo apt-get upgrade -y
+
+# Install essential packages
+sudo apt-get install -y \
+apt-transport-https \
+bat \
+btop \
+curl \
+detox \
+docker.io \
+eza \
+ffmpeg \
+fzf \
+gh \
+git \
+gpg \
+lazygit \
+libfuse2 \
+lm-sensors \
+lsb-release \
+ncat \
+neovim \
+nmap \
+pipx \
+pv \
+pwgen \
+ranger \
+rclone \
+renameutils \
+tmux \
+wget \
+yadm \
+zoxide \
+zsh \
+zsh-doc
+
+pipx install mnamer
+
+# Install latest mdview .deb from the GitHub API (amd64)
+MDVIEW_DEB_URL=$(curl -fsSL "https://api.github.com/repos/mapitman/mdview/releases/latest" | grep '"browser_download_url"' | grep 'amd64.*\.deb' | head -1 | cut -d'"' -f4)
+if [ -n "$MDVIEW_DEB_URL" ]; then
+    MDVIEW_TMP_DEB="$(mktemp --suffix=.deb)"
+    wget -q "$MDVIEW_DEB_URL" -O "$MDVIEW_TMP_DEB"
+    sudo apt-get install -y "$MDVIEW_TMP_DEB"
+    rm -f "$MDVIEW_TMP_DEB"
+else
+    echo "mdview: unable to determine latest .deb URL" >&2
+fi
+
+# Install Catppuccin theme for tmux
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-tmux-catppuccin-theme)

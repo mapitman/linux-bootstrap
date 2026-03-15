@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-desktop-packages)
+
+# Install Microsoft repo for VS Code
+curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+rm -f microsoft.gpg
+
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+# Install Griffo repo for various packages
+curl -sS https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/debian.griffo.io.gpg
+
+echo "deb https://debian.griffo.io/apt $(lsb_release -sc 2>/dev/null) main" | sudo tee /etc/apt/sources.list.d/debian.griffo.io.list
+
+# Update package repos
+sudo apt-get update
+
+# Install graphical desktop packages
+sudo apt-get install -y \
+audacity \
+code \
+darktable \
+evolution \
+evolution-ews \
+fonts-cascadia-code \
+fonts-firacode \
+ghostty \
+gimp \
+gnome-browser-connector \
+gnome-shell-extension-caffeine \
+gnome-shell-extension-dashtodock \
+gnome-shell-extension-freon \
+gnome-tweaks \
+handbrake \
+kdiff3 \
+libavcodec-extra \
+libfontconfig1 \
+mesa-utils \
+obs-studio \
+pipx \
+xclip
+
+# Install Gnome extension tooling and selected extensions
+pipx install gnome-extensions-cli --system-site-packages
+"$HOME"/.local/bin/gext install clipboard-history@alexsaveau.dev
+"$HOME"/.local/bin/gext enable clipboard-history@alexsaveau.dev
+
+# Move window buttons to the left
+if command -v gsettings >/dev/null 2>&1; then
+    gsettings get org.gnome.desktop.wm.preferences button-layout || true
+    gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maximize: || true
+fi

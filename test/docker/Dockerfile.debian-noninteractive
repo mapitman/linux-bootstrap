@@ -1,0 +1,48 @@
+# Non-interactive testing Dockerfile for Debian bootstrap scripts
+# This version runs the Debian package installer in a clean container
+# Usage:
+#   docker build -f test/docker/Dockerfile.debian-noninteractive -t debian-bootstrap-test-auto .
+#   docker run --rm debian-bootstrap-test-auto
+
+ARG DEBIAN_VERSION=bookworm
+FROM debian:${DEBIAN_VERSION}
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+
+# Install minimal dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    sudo \
+    openssh-client \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create a test user with sudo privileges.
+# This bypasses Debian's default lack of sudo group membership so tests can run unattended.
+RUN useradd -m -s /bin/bash testuser && \
+    echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER testuser
+WORKDIR /home/testuser
+
+# Copy bootstrap scripts
+COPY --chown=testuser:testuser . /home/testuser/linux-bootstrap
+
+# Create a non-interactive test runner
+RUN echo '#!/bin/bash' > /home/testuser/run-tests.sh && \
+    echo 'set -e' >> /home/testuser/run-tests.sh && \
+    echo 'cd /home/testuser/linux-bootstrap' >> /home/testuser/run-tests.sh && \
+    echo '' >> /home/testuser/run-tests.sh && \
+    echo 'echo "Testing Debian package installation..."' >> /home/testuser/run-tests.sh && \
+    echo 'bash debian/install-packages' >> /home/testuser/run-tests.sh && \
+    echo '' >> /home/testuser/run-tests.sh && \
+    echo 'echo ""' >> /home/testuser/run-tests.sh && \
+    echo 'echo "================================="' >> /home/testuser/run-tests.sh && \
+    echo 'echo "Debian package test completed"' >> /home/testuser/run-tests.sh && \
+    echo 'echo "================================="' >> /home/testuser/run-tests.sh && \
+    chmod +x /home/testuser/run-tests.sh
+
+CMD ["/home/testuser/run-tests.sh"]

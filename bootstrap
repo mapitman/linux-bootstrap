@@ -18,6 +18,9 @@ then
 elif [[ "$ID" == "arch" ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/arch/bootstrap)
+elif [[ "$ID" == "debian" ]]
+then
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/bootstrap)
 else
     echo "Unsupported Linux distribution."
 fi

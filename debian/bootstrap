@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Performs a full bootstrap of Debian, running all of the other scripts
+# in this directory.
+# Usage:
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/bootstrap)
+
+# Check if we're running on Debian
+source /etc/os-release
+if [[ "$ID" != "debian" ]]
+then
+    echo "Not running Debian, exiting."
+    exit 1
+fi
+
+# Create an ssh key
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/create-ssh-key)
+
+# Install packages
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-packages)
+
+# Desktop packages
+read -p "Install desktop apps? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-desktop-packages)
+
+    read -p "Install makemkv? " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-makemkv)
+    fi
+fi
+
+# Zsh customizations
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-zsh-customizations)
+
+# Create directories
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/create-directories)
+
+# Install JetBrains Toolbox
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-jetbrains-tools)
+
+# Authenticate to GitHub
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-login)
+
+# Add user to groups
+source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/add-user-to-groups)
