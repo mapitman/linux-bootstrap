@@ -41,6 +41,47 @@ obs-studio \
 pipx \
 xclip
 
+# Pango 1.56.x workaround: when FONTCONFIG_FILE is unset (or set to the default
+# /etc/fonts/fonts.conf path), Pango's font-loading thread pool hits a stack
+# corruption bug processing cache-11 entries for variable fonts (Cascadia Code,
+# Fira Code, Cantarell-VF, etc.), causing VS Code and other Electron apps to
+# crash silently on startup. The fix is to set FONTCONFIG_FILE to a wrapper
+# config that includes fonts.conf rather than pointing directly to fonts.conf.
+# This changes which Pango code path is used and avoids the bug.
+mkdir -p "$HOME/.config/fontconfig" "$HOME/.config/environment.d"
+
+cat > "$HOME/.config/fontconfig/fonts-pango.conf" << 'EOF'
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<!-- Pango 1.56.x workaround: wrapping fonts.conf here (rather than pointing
+     FONTCONFIG_FILE directly at /etc/fonts/fonts.conf) prevents a thread-pool
+     crash in the [pango] fontcon worker when processing variable-font cache-11
+     entries. Remove once Pango >= 1.57 is available in Debian stable. -->
+<fontconfig>
+  <include>/etc/fonts/fonts.conf</include>
+</fontconfig>
+EOF
+
+# Activate for future GNOME/systemd user sessions
+cat > "$HOME/.config/environment.d/fontconfig.conf" << EOF
+FONTCONFIG_FILE=$HOME/.config/fontconfig/fonts-pango.conf
+EOF
+
+# Activate for current and future terminal sessions
+_fc_comment='# Pango 1.56.x workaround for variable font crash (see ~/.config/fontconfig/fonts-pango.conf)'
+_fc_export='export FONTCONFIG_FILE="$HOME/.config/fontconfig/fonts-pango.conf"'
+for _rc in "$HOME/.bashrc" "$HOME/.zshrc"; do
+    if [ -f "$_rc" ] && ! grep -q "FONTCONFIG_FILE" "$_rc"; then
+        printf '\n%s\n%s\n' "$_fc_comment" "$_fc_export" >> "$_rc"
+    fi
+done
+unset _fc_comment _fc_export _rc
+
+export FONTCONFIG_FILE="$HOME/.config/fontconfig/fonts-pango.conf"
+
+# Rebuild fontconfig cache after font package installs
+fc-cache -f
+
 # Install Gnome extension tooling and selected extensions
 pipx install gnome-extensions-cli --system-site-packages
 "$HOME"/.local/bin/gext install clipboard-history@alexsaveau.dev
