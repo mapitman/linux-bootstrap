@@ -6,6 +6,7 @@ detects the distribution and runs the appropriate set of scripts.
 ## Supported Distributions
 
 - Arch
+- Debian
 - Fedora
 - Pop!_OS
 - Ubuntu
@@ -30,9 +31,19 @@ sudo dnf install curl && \
   source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/bootstrap)
 ```
 
-## Ubuntu or Pop!_OS
+## Debian, Ubuntu, or Pop!_OS
 
-To perform a full bootstrap from a clean Ubuntu or Pop!_OS install do:
+On Debian, add your current user to the `sudo` group first, since Debian does not do this by default for all installs:
+
+```sh
+su -
+/usr/sbin/usermod -aG sudo "$USER"
+exit
+```
+
+Then log out and log back in before running the bootstrap command.
+
+To perform a full bootstrap from a clean Debian, Ubuntu, or Pop!_OS install do:
 
 ```sh
 sudo apt-get update && sudo apt-get install -y curl git && \

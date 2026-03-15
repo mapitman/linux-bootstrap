@@ -1,195 +1,107 @@
-# Testing Strategy for Ubuntu Bootstrap Scripts
+# Testing Strategy for Bootstrap Scripts
 
-This directory contains automated testing infrastructure for the Ubuntu bootstrap scripts using Docker and QEMU.
+This directory contains automated testing infrastructure for the Ubuntu and Debian bootstrap scripts using Docker and QEMU.
 
 ## Quick Start
 
-### Option 1: Docker (Recommended for Quick Testing)
+### Option 1: Docker
 
-Docker provides fast, lightweight testing ideal for package installation validation.
+Docker provides fast, lightweight testing for package installation validation.
 
-**Interactive Testing:**
+### Ubuntu interactive testing
+
 ```bash
-# Build the test image
 docker build -f test/docker/Dockerfile.ubuntu -t ubuntu-bootstrap-test .
-
-# Run interactively to manually test scripts
 docker run -it --rm ubuntu-bootstrap-test
+```
 
-# Inside the container, test individual scripts:
+Inside the container:
+
+```bash
 cd linux-bootstrap
 bash ubuntu/install-essential-packages
 ```
 
-**Automated Testing:**
-```bash
-# Build and run non-interactive tests
-docker build -f test/docker/Dockerfile.ubuntu-noninteractive -t ubuntu-bootstrap-test-auto .
-docker run --rm ubuntu-bootstrap-test-auto
-```
-
-**Test Different Ubuntu Versions:**
-```bash
-# Ubuntu 22.04 LTS
-docker build --build-arg UBUNTU_VERSION=22.04 -f test/docker/Dockerfile.ubuntu -t ubuntu-bootstrap-test:22.04 .
-
-# Ubuntu 24.04 LTS
-docker build --build-arg UBUNTU_VERSION=24.04 -f test/docker/Dockerfile.ubuntu -t ubuntu-bootstrap-test:24.04 .
-```
-
-### Option 2: QEMU (For Full System Testing)
-
-QEMU provides a complete VM environment for testing system-level changes that Docker can't replicate (systemd, kernel modules, etc.).
+### Ubuntu automated testing
 
 ```bash
-# See test/qemu/README.md for QEMU setup instructions
+docker build -f test/docker/Dockerfile.ubuntu-noninteractive -t ubuntu-bootstrap-test:auto .
+docker run --rm ubuntu-bootstrap-test:auto
 ```
 
-## Testing Approaches
-
-### 1. Unit Testing (Individual Scripts)
-
-Test each script independently:
+### Debian automated testing
 
 ```bash
-docker run -it --rm ubuntu-bootstrap-test bash -c "
-  cd linux-bootstrap && \
-  bash ubuntu/install-essential-packages && \
-  echo 'Essential packages installed successfully'
-"
+docker build -f test/docker/Dockerfile.debian-noninteractive -t debian-bootstrap-test:auto .
+docker run --rm debian-bootstrap-test:auto
 ```
 
-### 2. Integration Testing (Full Bootstrap)
-
-Test the complete bootstrap flow (requires handling interactive prompts):
+### Versioned test images
 
 ```bash
-# Create a script with automated responses
-cat > test-full-bootstrap.sh << 'EOF'
-#!/bin/bash
-# Simulate user responses: n for dev, n for desktop, n for media, n for optical
-echo -e "n\nn\nn\nn" | bash ubuntu/bootstrap
-EOF
+# Ubuntu
+docker build --build-arg UBUNTU_VERSION=24.04 -f test/docker/Dockerfile.ubuntu-noninteractive -t ubuntu-bootstrap-test:24.04 .
+docker build --build-arg UBUNTU_VERSION=25.10 -f test/docker/Dockerfile.ubuntu-noninteractive -t ubuntu-bootstrap-test:25.10 .
 
-docker run -it --rm -v $(pwd)/test-full-bootstrap.sh:/tmp/test.sh ubuntu-bootstrap-test bash /tmp/test.sh
+# Debian
+docker build --build-arg DEBIAN_VERSION=bookworm -f test/docker/Dockerfile.debian-noninteractive -t debian-bootstrap-test:bookworm .
+docker build --build-arg DEBIAN_VERSION=trixie -f test/docker/Dockerfile.debian-noninteractive -t debian-bootstrap-test:trixie .
 ```
 
-### 3. GitHub Actions CI/CD
+### Option 2: QEMU
 
-Add `.github/workflows/test-ubuntu.yml` to automatically test on every push:
-
-```yaml
-name: Test Ubuntu Bootstrap
-
-on: [push, pull_request]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ubuntu-version: ['20.04', '22.04', '24.04']
-    
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Build test image
-        run: |
-          docker build \
-            --build-arg UBUNTU_VERSION=${{ matrix.ubuntu-version }} \
-            -f test/docker/Dockerfile.ubuntu-noninteractive \
-            -t ubuntu-bootstrap-test .
-      
-      - name: Run tests
-        run: docker run --rm ubuntu-bootstrap-test
-```
-
-## Docker vs QEMU: When to Use Each
-
-| Feature | Docker | QEMU |
-|---------|--------|------|
-| **Speed** | Fast (seconds) | Slow (minutes) |
-| **Isolation** | Process-level | Full VM |
-| **Systemd** | Limited support | Full support |
-| **Kernel Modules** | Host kernel only | Full kernel |
-| **Use Case** | Package installation testing | Full system configuration |
-| **CI/CD** | ✅ Ideal | ❌ Too slow |
-
-**Recommendation:** 
-- Use **Docker** for 95% of testing (package installs, script syntax, basic functionality)
-- Use **QEMU** only when testing systemd services, kernel modules, or boot configuration
-
-## Limitations and Workarounds
-
-### Docker Limitations
-
-1. **Interactive Prompts**: Scripts with `read -p` need automation or modification
-   - **Workaround**: Use `echo` piping or create non-interactive variants
-   
-2. **Systemd**: Some systemd operations won't work in Docker
-   - **Workaround**: Mock systemd commands or skip in tests
-   
-3. **Privileged Operations**: Some hardware/kernel operations unavailable
-   - **Workaround**: Use `--privileged` flag or test in QEMU
-
-### Testing Interactive Scripts
-
-For scripts with prompts, create test wrappers:
+QEMU provides a full VM environment for testing system-level changes that Docker cannot replicate.
 
 ```bash
-# Automatically answer "yes" to all prompts
-yes | bash ubuntu/bootstrap
-
-# Provide specific answers
-echo -e "y\nn\ny" | bash ubuntu/bootstrap
+# See test/qemu/README.md for setup instructions
 ```
 
-Or modify scripts to support environment variables:
+## Local Commands
+
+Use the wrapper script:
 
 ```bash
-# In the script:
-if [[ -n "$CI" ]]; then
-  # Non-interactive mode
-  REPLY="n"
-else
-  read -p "Install development tools? " -n 1 -r
-  echo
-fi
+./test/run-tests.sh auto
+./test/run-tests.sh all
+./test/run-tests.sh debian
+./test/run-tests.sh debian-all
+./test/run-tests.sh syntax
 ```
 
-## Recommended Testing Workflow
+Or use the Makefile:
 
-1. **Local Development**: 
-   ```bash
-   # Quick syntax check
-   bash -n ubuntu/bootstrap
-   shellcheck ubuntu/bootstrap
-   
-   # Test in Docker
-   docker build -f test/docker/Dockerfile.ubuntu -t ubuntu-bootstrap-test .
-   docker run -it --rm ubuntu-bootstrap-test
-   ```
+```bash
+make test
+make test-all
+make test-debian
+make test-debian-all
+make test-syntax
+```
 
-2. **Before Commit**:
-   ```bash
-   # Run automated tests
-   docker build -f test/docker/Dockerfile.ubuntu-noninteractive -t test .
-   docker run --rm test
-   ```
+## CI Workflows
 
-3. **CI Pipeline**:
-   - Automated Docker tests on every push
-   - Test multiple Ubuntu versions (20.04, 22.04, 24.04)
+The repository includes dedicated distro test workflows:
 
-4. **Major Changes**:
-   - Full QEMU VM test with clean Ubuntu ISO
-   - Manual verification on physical hardware
+- `.github/workflows/test-ubuntu.yml`
+- `.github/workflows/test-debian.yml`
+
+They build Docker images and run the non-interactive installer tests for supported Ubuntu and Debian versions.
+
+## Limitations
+
+Docker is suitable for package-installation validation and syntax checks, but not for full workstation bootstrap behavior that depends on interactive auth flows or full init/system services.
+
+For example, Debian CI tests target `debian/install-packages` rather than `debian/bootstrap`, because the full bootstrap sources interactive helpers such as SSH key generation and GitHub auth.
+
+## Recommended Workflow
+
+1. Run `bash scripts/check.sh` for repo-wide syntax validation.
+2. Run `make test-debian` for a quick Debian smoke test.
+3. Run `make test-debian-all` before merging Debian-specific changes.
+4. Use QEMU only if you need to validate behavior Docker cannot represent.
 
 ## Future Enhancements
 
-- [ ] Add GitHub Actions CI workflow
-- [ ] Create QEMU automated testing with cloud-init
-- [ ] Add test coverage for all distros (Fedora, Arch, Pop!_OS)
-- [ ] Create non-interactive mode for all bootstrap scripts
-- [ ] Add smoke tests to verify installed packages work
-- [ ] Create test fixtures for different user scenarios
+- Add Fedora, Arch, and Pop!_OS Docker test coverage.
+- Add smoke tests that verify key installed tools are actually runnable.
+- Add non-interactive bootstrap modes for currently interactive distro flows.

@@ -1,0 +1,64 @@
+name: Test Debian Bootstrap
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'debian/**'
+      - 'generic/**'
+      - 'bootstrap'
+      - 'test/**'
+      - '.github/workflows/test-debian.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'debian/**'
+      - 'generic/**'
+      - 'bootstrap'
+      - 'test/**'
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: ShellCheck Linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        run: |
+          sudo apt-get update && sudo apt-get install -y shellcheck
+          find debian/ generic/ -type f ! -name "*.md" -exec shellcheck -x --severity=error {} \;
+          shellcheck -x --severity=error bootstrap
+
+  docker-test:
+    name: Docker Test (Debian ${{ matrix.debian-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        debian-version: ['bookworm', 'trixie']
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build test image
+        run: |
+          docker build \
+            --build-arg DEBIAN_VERSION=${{ matrix.debian-version }} \
+            -f test/docker/Dockerfile.debian-noninteractive \
+            -t debian-bootstrap-test:${{ matrix.debian-version }} \
+            .
+
+      - name: Run installer tests
+        run: |
+          docker run --rm debian-bootstrap-test:${{ matrix.debian-version }}
+
+      - name: Test syntax
+        run: |
+          docker run --rm debian-bootstrap-test:${{ matrix.debian-version }} bash -c "
+            cd /home/testuser/linux-bootstrap && \
+            bash -n debian/bootstrap && \
+            bash -n debian/install-packages && \
+            echo 'All Debian syntax checks passed'
+          "

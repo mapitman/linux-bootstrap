@@ -4,8 +4,10 @@ on:
   push:
     paths:
       - '**/*.sh'
+      - '.github/workflows/**'
       - 'bootstrap'
       - 'arch/**'
+      - 'debian/**'
       - 'ubuntu/**'
       - 'pop_os/**'
       - 'fedora/**'
@@ -13,8 +15,10 @@ on:
   pull_request:
     paths:
       - '**/*.sh'
+      - '.github/workflows/**'
       - 'bootstrap'
       - 'arch/**'
+      - 'debian/**'
       - 'ubuntu/**'
       - 'pop_os/**'
       - 'fedora/**'
