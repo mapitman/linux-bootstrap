@@ -20,6 +20,7 @@ ffmpeg \
 fzf \
 gh \
 git \
+git-extras \
 gpg \
 lazygit \
 libfuse2 \
@@ -34,6 +35,7 @@ pwgen \
 ranger \
 rclone \
 renameutils \
+starship \
 tmux \
 wget \
 yadm \
