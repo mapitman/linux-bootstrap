@@ -14,7 +14,7 @@ if [ -f "/tmp/$base_filename/bin/jetbrains-toolbox" ]; then
     echo "JetBrains Toolbox downloaded and extracted successfully."
 else
     echo "Failed to download or extract JetBrains Toolbox."
-    exit 1
+    return 1
 fi
 "/tmp/$base_filename/bin/jetbrains-toolbox" >/dev/null 2>&1 &
 echo "JetBrains Toolbox installation initiated. Please complete the setup through the application interface."
