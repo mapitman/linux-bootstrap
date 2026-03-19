@@ -10,7 +10,7 @@ source /etc/os-release
 if [[ "$ID" != "debian" ]]
 then
     echo "Not running Debian, exiting."
-    exit 1
+    return 1
 fi
 
 # Create an ssh key
@@ -51,3 +51,5 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 
 # Add user to groups
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/add-user-to-groups)
+
+echo "Bootstrap complete! You may need to log out and back in for group membership changes to take effect."
