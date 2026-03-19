@@ -4,7 +4,7 @@
 # Install makemkv
 if ! command -v makemkv &>/dev/null
 then
-    MAKEMKV_VERSION="1.18.2"
+    MAKEMKV_VERSION="1.18.3"
     mkdir -p /tmp/makemkv-build
     pushd /tmp/makemkv-build || { echo "ERROR: Failed to enter /tmp/makemkv-build"; return 1; }
 
