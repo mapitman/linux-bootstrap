@@ -1,22 +1,10 @@
 #!/usr/bin/env bash
-# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-makemkv)
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-makemkv)
 
 # Install makemkv
 if ! command -v makemkv &>/dev/null
 then
     MAKEMKV_VERSION="1.18.3"
-    mkdir -p /tmp/makemkv-build
-    pushd /tmp/makemkv-build || { echo "ERROR: Failed to enter /tmp/makemkv-build"; return 1; }
-
-    curl -O "https://www.makemkv.com/download/makemkv-bin-$MAKEMKV_VERSION.tar.gz"
-    curl -O "https://www.makemkv.com/download/makemkv-oss-$MAKEMKV_VERSION.tar.gz"
-    curl -O https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
-
-    tar xzvf "makemkv-bin-$MAKEMKV_VERSION.tar.gz" || { echo "ERROR: Failed to extract makemkv-bin"; popd; return 1; }
-    tar xzvf "makemkv-oss-$MAKEMKV_VERSION.tar.gz" || { echo "ERROR: Failed to extract makemkv-oss"; popd; return 1; }
-    tar xjvf ffmpeg-snapshot.tar.bz2 || { echo "ERROR: Failed to extract ffmpeg snapshot"; popd; return 1; }
-
-    popd || return 1
 
     sudo apt-get install -y \
     build-essential \
@@ -30,21 +18,34 @@ then
     zlib1g-dev \
     yasm \
     libfdk-aac-dev \
-    nasm
+    nasm || { echo "ERROR: Failed to install build dependencies"; return 1; }
+
+    mkdir -p /tmp/makemkv-build
+    pushd /tmp/makemkv-build || { echo "ERROR: Failed to enter /tmp/makemkv-build"; return 1; }
+
+    curl -O "https://www.makemkv.com/download/makemkv-bin-$MAKEMKV_VERSION.tar.gz"
+    curl -O "https://www.makemkv.com/download/makemkv-oss-$MAKEMKV_VERSION.tar.gz"
+    curl -O https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+
+    tar xzvf "makemkv-bin-$MAKEMKV_VERSION.tar.gz" || { echo "ERROR: Failed to extract makemkv-bin"; popd; return 1; }
+    tar xzvf "makemkv-oss-$MAKEMKV_VERSION.tar.gz" || { echo "ERROR: Failed to extract makemkv-oss"; popd; return 1; }
+    tar xjvf ffmpeg-snapshot.tar.bz2 || { echo "ERROR: Failed to extract ffmpeg snapshot"; popd; return 1; }
+
+    popd || return 1
 
     pushd /tmp/makemkv-build/ffmpeg || { echo "ERROR: Failed to enter ffmpeg directory. Did the ffmpeg snapshot extract correctly?"; return 1; }
-    ./configure --prefix=/tmp/ffmpeg --enable-static --disable-shared --enable-pic --enable-libfdk-aac
-    make install
+    ./configure --prefix=/tmp/ffmpeg --enable-static --disable-shared --enable-pic --enable-libfdk-aac || { echo "ERROR: ffmpeg configure failed"; popd; return 1; }
+    make install || { echo "ERROR: ffmpeg build failed"; popd; return 1; }
     popd || return 1
 
     pushd "/tmp/makemkv-build/makemkv-oss-$MAKEMKV_VERSION" || { echo "ERROR: Failed to enter makemkv-oss directory"; return 1; }
-    PKG_CONFIG_PATH=/tmp/ffmpeg/lib/pkgconfig ./configure
-    make
-    sudo make install
+    PKG_CONFIG_PATH=/tmp/ffmpeg/lib/pkgconfig ./configure || { echo "ERROR: makemkv-oss configure failed"; popd; return 1; }
+    make || { echo "ERROR: makemkv-oss build failed"; popd; return 1; }
+    sudo make install || { echo "ERROR: makemkv-oss install failed"; popd; return 1; }
     popd || return 1
 
     pushd "/tmp/makemkv-build/makemkv-bin-$MAKEMKV_VERSION" || { echo "ERROR: Failed to enter makemkv-bin directory"; return 1; }
-    make
-    sudo make install
+    make || { echo "ERROR: makemkv-bin build failed"; popd; return 1; }
+    sudo make install || { echo "ERROR: makemkv-bin install failed"; popd; return 1; }
     popd || return 1
 fi
