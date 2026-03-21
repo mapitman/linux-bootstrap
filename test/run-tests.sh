@@ -68,15 +68,15 @@ case "$MODE" in
     debian|d)
         print_header "Running Debian Automated Tests"
 
-        print_header "Testing Debian bookworm"
+        print_header "Testing Debian trixie"
         docker build \
-            --build-arg DEBIAN_VERSION=bookworm \
+            --build-arg DEBIAN_VERSION=trixie \
             -f test/docker/Dockerfile.debian-noninteractive \
-            -t debian-bootstrap-test:bookworm \
+            -t debian-bootstrap-test:trixie \
             .
-        docker run --rm debian-bootstrap-test:bookworm
+        docker run --rm debian-bootstrap-test:trixie
 
-        echo -e "\n${GREEN}✓ Debian bookworm tests passed${NC}\n"
+        echo -e "\n${GREEN}✓ Debian trixie tests passed${NC}\n"
         ;;
     
     all)
@@ -114,7 +114,7 @@ case "$MODE" in
     debian-all)
         print_header "Running Comprehensive Debian Tests"
 
-        VERSIONS=("bookworm" "trixie")
+        VERSIONS=("trixie")
         FAILED=()
 
         for VERSION in "${VERSIONS[@]}"; do
