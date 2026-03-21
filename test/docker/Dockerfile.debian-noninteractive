@@ -31,18 +31,4 @@ WORKDIR /home/testuser
 # Copy bootstrap scripts
 COPY --chown=testuser:testuser . /home/testuser/linux-bootstrap
 
-# Create a non-interactive test runner
-RUN echo '#!/bin/bash' > /home/testuser/run-tests.sh && \
-    echo 'set -e' >> /home/testuser/run-tests.sh && \
-    echo 'cd /home/testuser/linux-bootstrap' >> /home/testuser/run-tests.sh && \
-    echo '' >> /home/testuser/run-tests.sh && \
-    echo 'echo "Testing Debian package installation..."' >> /home/testuser/run-tests.sh && \
-    echo 'bash debian/install-packages' >> /home/testuser/run-tests.sh && \
-    echo '' >> /home/testuser/run-tests.sh && \
-    echo 'echo ""' >> /home/testuser/run-tests.sh && \
-    echo 'echo "================================="' >> /home/testuser/run-tests.sh && \
-    echo 'echo "Debian package test completed"' >> /home/testuser/run-tests.sh && \
-    echo 'echo "================================="' >> /home/testuser/run-tests.sh && \
-    chmod +x /home/testuser/run-tests.sh
-
-CMD ["/home/testuser/run-tests.sh"]
+CMD ["/bin/bash", "/home/testuser/linux-bootstrap/test/docker/run-tests-debian.sh"]
