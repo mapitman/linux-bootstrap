@@ -6,3 +6,7 @@ sudo usermod -aG dialout "$USER"
 
 # Add current user to docker group
 sudo usermod -aG docker "$USER"
+
+# Add current user to libvirt and kvm groups for QEMU/virt-manager
+sudo usermod -aG kvm "$USER"
+sudo usermod -aG libvirt "$USER"

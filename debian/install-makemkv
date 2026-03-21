@@ -2,7 +2,7 @@
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-makemkv)
 
 # Install makemkv
-if ! command -v makemkv &>/dev/null
+if ! command -v makemkvcon &>/dev/null
 then
     MAKEMKV_VERSION="1.18.3"
 
@@ -20,6 +20,7 @@ then
     libfdk-aac-dev \
     nasm || { echo "ERROR: Failed to install build dependencies"; return 1; }
 
+    rm -rf /tmp/makemkv-build /tmp/ffmpeg
     mkdir -p /tmp/makemkv-build
     pushd /tmp/makemkv-build || { echo "ERROR: Failed to enter /tmp/makemkv-build"; return 1; }
 

@@ -39,6 +39,9 @@ libfontconfig1 \
 mesa-utils \
 obs-studio \
 pipx \
+qemu-system-x86 \
+qemu-utils \
+virt-manager \
 xclip
 
 # Pango 1.56.x workaround: when FONTCONFIG_FILE is unset (or set to the default
