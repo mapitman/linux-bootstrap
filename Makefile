@@ -5,7 +5,7 @@
 
 # Ubuntu versions to test
 UBUNTU_VERSIONS := 24.04 25.10
-DEBIAN_VERSIONS := bookworm trixie
+DEBIAN_VERSIONS := trixie
 
 help: ## Show this help message
 	@echo "Linux Bootstrap Testing Makefile"
@@ -26,10 +26,10 @@ test-interactive: ## Start interactive Docker container for manual testing
 test-all: ## Run tests on all Ubuntu versions (24.04, 25.10)
 	@./test/run-tests.sh all
 
-test-debian: ## Run automated tests on Debian bookworm
+test-debian: ## Run automated tests on Debian trixie
 	@./test/run-tests.sh debian
 
-test-debian-all: ## Run tests on all Debian versions (bookworm, trixie)
+test-debian-all: ## Run tests on all Debian versions (trixie)
 	@./test/run-tests.sh debian-all
 
 test-syntax: ## Run syntax checks on all bash scripts
