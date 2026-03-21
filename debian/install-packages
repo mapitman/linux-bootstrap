@@ -36,7 +36,7 @@ git \
 git-extras \
 gpg \
 lazygit \
-libfuse2 \
+libfuse2t64 \
 lm-sensors \
 lsb-release \
 ncat \
