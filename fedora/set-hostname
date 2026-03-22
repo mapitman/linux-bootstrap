@@ -4,7 +4,8 @@
 # Prompt for the new hostname until a non-empty value is provided
 new_hostname=""
 while [ -z "$new_hostname" ]; do
-    read -p "Enter the new hostname: " new_hostname
+    printf "Enter the new hostname: "
+    read -r new_hostname </dev/tty
     if [ -z "$new_hostname" ]; then
         echo "Error: Hostname cannot be empty. Please try again."
     fi
