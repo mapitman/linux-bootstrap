@@ -12,9 +12,11 @@ toolbox_bin="$install_dir/bin/jetbrains-toolbox"
 if [[ -f "$toolbox_bin" ]] || command -v jetbrains-toolbox >/dev/null 2>&1; then
     echo "JetBrains Toolbox is already installed, skipping."
 else
+    echo "Downloading JetBrains Toolbox version $JETBRAINS_TOOLBOX_VERSION..."
     curl -L -o /tmp/$base_filename.tar.gz https://download.jetbrains.com/toolbox/$base_filename.tar.gz
     mkdir -p "$install_dir"
-    tar xzvf /tmp/$base_filename.tar.gz -C "$install_dir" --strip-components=1
+    echo "Extracting JetBrains Toolbox to $install_dir..."
+    tar xzf /tmp/$base_filename.tar.gz -C "$install_dir" --strip-components=1
     rm -f /tmp/$base_filename.tar.gz
 
     if [[ -f "$toolbox_bin" ]]; then
@@ -24,5 +26,5 @@ else
         return 1
     fi
     "$toolbox_bin" >/dev/null 2>&1 &
-    echo "JetBrains Toolbox installation initiated. Please complete the setup through the application interface."
+    echo "JetBrains Toolbox installation initiated. Complete the setup through the application interface."
 fi
