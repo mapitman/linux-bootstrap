@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-ghostty-catppuccin-theme)
+
+GHOSTTY_THEMES_DIR="$HOME/.config/ghostty/themes"
+
+if [[ -f "$GHOSTTY_THEMES_DIR/catppuccin-mocha" ]]; then
+    echo "Catppuccin theme for ghostty is already installed, skipping."
+else
+    mkdir -p "$GHOSTTY_THEMES_DIR"
+    curl -fsSL "https://raw.githubusercontent.com/catppuccin/ghostty/main/themes/catppuccin-mocha" \
+        -o "$GHOSTTY_THEMES_DIR/catppuccin-mocha"
+    echo "Catppuccin mocha theme for ghostty installed."
+fi
