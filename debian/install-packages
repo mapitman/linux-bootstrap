@@ -16,7 +16,7 @@ fi
 
 # Add Charm apt repository (provides gum)
 sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --yes --dearmor -o /etc/apt/keyrings/charm.gpg
 echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
 
 # Update package repos
@@ -80,12 +80,16 @@ else
 fi
 
 # Install latest agg (asciinema GIF generator) binary from GitHub
-AGG_URL=$(curl -fsSL "https://api.github.com/repos/asciinema/agg/releases/latest" | grep '"browser_download_url"' | grep 'x86_64-unknown-linux-gnu' | head -1 | cut -d'"' -f4)
-if [ -n "$AGG_URL" ]; then
-    sudo curl -fsSL "$AGG_URL" -o /usr/local/bin/agg
-    sudo chmod +x /usr/local/bin/agg
+if [[ ! -f /usr/local/bin/agg ]]; then
+    AGG_URL=$(curl -fsSL "https://api.github.com/repos/asciinema/agg/releases/latest" | grep '"browser_download_url"' | grep 'x86_64-unknown-linux-gnu' | head -1 | cut -d'"' -f4)
+    if [ -n "$AGG_URL" ]; then
+        sudo curl -fsSL "$AGG_URL" -o /usr/local/bin/agg
+        sudo chmod +x /usr/local/bin/agg
+    else
+        echo "agg: unable to determine latest binary URL" >&2
+    fi
 else
-    echo "agg: unable to determine latest binary URL" >&2
+    echo "agg is already installed, skipping."
 fi
 
 # Install Catppuccin theme for tmux
