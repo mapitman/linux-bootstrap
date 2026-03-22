@@ -28,9 +28,6 @@ fonts-firacode \
 ghostty \
 gimp \
 gnome-browser-connector \
-gnome-shell-extension-caffeine \
-gnome-shell-extension-dashtodock \
-gnome-shell-extension-freon \
 gnome-tweaks \
 handbrake \
 kdiff3 \
@@ -87,8 +84,26 @@ fc-cache -f
 
 # Install Gnome extension tooling and selected extensions
 pipx install gnome-extensions-cli --system-site-packages
-"$HOME"/.local/bin/gext install clipboard-history@alexsaveau.dev
-"$HOME"/.local/bin/gext enable clipboard-history@alexsaveau.dev
+
+_gext_install() {
+    local uuid="$1"
+    if ! gnome-extensions list | grep -q "$uuid"; then
+        "$HOME"/.local/bin/gext install "$uuid"
+    else
+        echo "GNOME extension $uuid is already installed, skipping."
+    fi
+    if ! gnome-extensions list --enabled | grep -q "$uuid"; then
+        "$HOME"/.local/bin/gext enable "$uuid"
+    else
+        echo "GNOME extension $uuid is already enabled, skipping."
+    fi
+}
+
+_gext_install caffeine@patapon.info
+_gext_install dash-to-dock@micxgx.gmail.com
+_gext_install freon@UshakovVasilii_Github.yahoo.com
+_gext_install clipboard-history@alexsaveau.dev
+unset -f _gext_install
 
 # Move window buttons to the left
 if command -v gsettings >/dev/null 2>&1; then
