@@ -35,6 +35,9 @@ then
     then
         source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-makemkv)
     fi
+
+    # Install Ghostty catppuccin theme
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-ghostty-catppuccin-theme)
 fi
 
 # Zsh customizations
