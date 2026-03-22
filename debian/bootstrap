@@ -23,14 +23,14 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-eza-themes)
 
 # Desktop packages
-read -p "Install desktop apps? " -n 1 -r
-echo
+printf "Install desktop apps? "
+read -r REPLY </dev/tty
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-desktop-packages)
 
-    read -p "Install makemkv? " -n 1 -r
-    echo
+    printf "Install makemkv? "
+    read -r REPLY </dev/tty
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-makemkv)

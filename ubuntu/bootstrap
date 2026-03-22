@@ -20,8 +20,8 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-essential-packages)
 
 # Dev packages
-read -p "Install development tools? " -n 1 -r
-echo
+printf "Install development tools? "
+read -r REPLY </dev/tty
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     # Create directories
@@ -30,8 +30,8 @@ then
     # Install dev packages
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-dev-packages)
 
-    read -p "Install JetBrains tools? " -n 1 -r
-    echo
+    printf "Install JetBrains tools? "
+    read -r REPLY </dev/tty
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-jetbrains-tools)
@@ -42,8 +42,8 @@ then
 fi
 
 # Desktop packages
-read -p "Install desktop apps? " -n 1 -r
-echo
+printf "Install desktop apps? "
+read -r REPLY </dev/tty
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-desktop-packages)
@@ -53,22 +53,22 @@ then
 fi
 
 # Install media CLI tools
-read -p "Install media CLI tools? " -n 1 -r
-echo
+printf "Install media CLI tools? "
+read -r REPLY </dev/tty
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-media-cli-tools)
 fi
 
 # Bluray and DVD libs
-read -p "Install Bluray and DVD apps? " -n 1 -r
-echo
+printf "Install Bluray and DVD apps? "
+read -r REPLY </dev/tty
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-optical-disc-packages)
 
-    read -p "Install makemkv? " -n 1 -r
-    echo
+    printf "Install makemkv? "
+    read -r REPLY </dev/tty
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-makemkv)
