@@ -7,7 +7,8 @@ if [[ -f "$GHOSTTY_THEMES_DIR/catppuccin-mocha" ]]; then
     echo "Catppuccin theme for ghostty is already installed, skipping."
 else
     mkdir -p "$GHOSTTY_THEMES_DIR"
-    curl -fsSL "https://raw.githubusercontent.com/catppuccin/ghostty/main/themes/catppuccin-mocha" \
-        -o "$GHOSTTY_THEMES_DIR/catppuccin-mocha"
+    curl -fsSL "https://raw.githubusercontent.com/catppuccin/ghostty/main/themes/catppuccin-mocha.conf" \
+        -o "$GHOSTTY_THEMES_DIR/catppuccin-mocha" \
+        || { echo "ERROR: Failed to download Catppuccin mocha theme for ghostty"; return 1; }
     echo "Catppuccin mocha theme for ghostty installed."
 fi
