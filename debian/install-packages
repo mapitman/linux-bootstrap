@@ -69,6 +69,7 @@ MDVIEW_DEB_URL=$(curl -fsSL "https://api.github.com/repos/mapitman/mdview/releas
 if [ -n "$MDVIEW_DEB_URL" ]; then
     MDVIEW_TMP_DEB="$(mktemp --suffix=.deb)"
     wget -q "$MDVIEW_DEB_URL" -O "$MDVIEW_TMP_DEB"
+    chmod 644 "$MDVIEW_TMP_DEB"
     sudo apt-get install -y "$MDVIEW_TMP_DEB"
     rm -f "$MDVIEW_TMP_DEB"
 else
