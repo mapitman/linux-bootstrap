@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-tmux-catppuccin-theme)
 
-mkdir -p ~/.config/tmux/plugins/catppuccin
-rm -rf ~/.config/tmux/plugins/catppuccin/tmux
-if git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux; then
-  echo "Catppuccin theme for tmux has been installed."
-  echo "To apply the theme, add the following line to your .tmux.conf file:"
-  echo "run ~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux"
+CATPPUCCIN_TMUX_DIR="$HOME/.config/tmux/plugins/catppuccin/tmux"
+CATPPUCCIN_TMUX_TAG="v2.1.3"
+
+if [[ -d "$CATPPUCCIN_TMUX_DIR" ]]; then
+    echo "Catppuccin theme for tmux is already installed, skipping."
 else
-  echo "Error: Failed to clone Catppuccin tmux theme repository." >&2
-  # If sourced, return non-zero; if executed directly, exit non-zero.
-  return 1 2>/dev/null || exit 1
+    mkdir -p "$HOME/.config/tmux/plugins/catppuccin"
+    if git clone -b "$CATPPUCCIN_TMUX_TAG" https://github.com/catppuccin/tmux.git "$CATPPUCCIN_TMUX_DIR"; then
+        echo "Catppuccin theme for tmux has been installed."
+        echo "To apply the theme, add the following line to your .tmux.conf file:"
+        echo "run ~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux"
+    else
+        echo "Error: Failed to clone Catppuccin tmux theme repository." >&2
+        return 1 2>/dev/null || exit 1
+    fi
 fi
