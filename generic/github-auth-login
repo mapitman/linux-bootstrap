@@ -2,4 +2,8 @@
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/github-auth-login)
 
 echo "Auth/Login for GitHub CLI."
-gh auth login --web --scopes "admin:public_key"
+if gh auth status --hostname github.com >/dev/null 2>&1; then
+    echo "Already authenticated with GitHub CLI, skipping."
+else
+    gh auth login --web --scopes "admin:public_key"
+fi
