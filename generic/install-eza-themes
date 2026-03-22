@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-eza-themes)
 
-rm -rf "$HOME/.local/share/eza-themes"
-git clone https://github.com/eza-community/eza-themes.git ~/.local/share/eza-themes
+if [[ -d "$HOME/.local/share/eza-themes" ]]; then
+    echo "eza themes are already installed, skipping."
+else
+    git clone https://github.com/eza-community/eza-themes.git ~/.local/share/eza-themes
+fi
 mkdir -p ~/.config/eza
 ln -sf "$HOME/.local/share/eza-themes/themes/catppuccin-mocha.yml" ~/.config/eza/theme.yml
