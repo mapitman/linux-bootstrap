@@ -28,12 +28,14 @@ sudo apt-get upgrade -y
 # Install essential packages
 sudo apt-get install -y \
 apt-transport-https \
+asciinema \
 bat \
 btop \
 curl \
 detox \
 docker.io \
 eza \
+expect \
 ffmpeg \
 fzf \
 gh \
@@ -48,6 +50,7 @@ lsb-release \
 ncat \
 neovim \
 nmap \
+pandoc \
 pipx \
 pv \
 pwgen \
@@ -74,6 +77,15 @@ if [ -n "$MDVIEW_DEB_URL" ]; then
     rm -f "$MDVIEW_TMP_DEB"
 else
     echo "mdview: unable to determine latest .deb URL" >&2
+fi
+
+# Install latest agg (asciinema GIF generator) binary from GitHub
+AGG_URL=$(curl -fsSL "https://api.github.com/repos/asciinema/agg/releases/latest" | grep '"browser_download_url"' | grep 'x86_64-unknown-linux-gnu' | head -1 | cut -d'"' -f4)
+if [ -n "$AGG_URL" ]; then
+    sudo curl -fsSL "$AGG_URL" -o /usr/local/bin/agg
+    sudo chmod +x /usr/local/bin/agg
+else
+    echo "agg: unable to determine latest binary URL" >&2
 fi
 
 # Install Catppuccin theme for tmux
