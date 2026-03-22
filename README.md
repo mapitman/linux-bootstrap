@@ -33,15 +33,6 @@ sudo dnf install curl && \
 
 ## Debian, Ubuntu, or Pop!_OS
 
-On Debian, add your current user to the `sudo` group first, since Debian does not do this by default for all installs:
-
-```sh
-su -
-/usr/sbin/usermod -aG sudo "$USER"
-exit
-```
-
-Then log out and log back in before running the bootstrap command.
 
 To perform a full bootstrap from a clean Debian, Ubuntu, or Pop!_OS install do:
 
