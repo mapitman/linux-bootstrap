@@ -2,7 +2,7 @@
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-makemkv)
 
 # Install makemkv
-if ! command -v makemkvcon &>/dev/null
+if ! command -v makemkv &>/dev/null || ! command -v makemkvcon &>/dev/null
 then
     MAKEMKV_VERSION="1.18.3"
 
