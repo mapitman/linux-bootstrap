@@ -6,19 +6,23 @@
 # NOTE: Update this version periodically when a new JetBrains Toolbox release is desired.
 JETBRAINS_TOOLBOX_VERSION=3.2.0.65851
 base_filename="jetbrains-toolbox-$JETBRAINS_TOOLBOX_VERSION"
+install_dir="$HOME/.local/opt/jetbrains-toolbox"
+toolbox_bin="$install_dir/bin/jetbrains-toolbox"
 
-if [[ -f "$HOME/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox" ]] || command -v jetbrains-toolbox >/dev/null 2>&1; then
+if [[ -f "$toolbox_bin" ]] || command -v jetbrains-toolbox >/dev/null 2>&1; then
     echo "JetBrains Toolbox is already installed, skipping."
 else
     curl -L -o /tmp/$base_filename.tar.gz https://download.jetbrains.com/toolbox/$base_filename.tar.gz
-    tar xzvf /tmp/$base_filename.tar.gz -C /tmp
+    mkdir -p "$install_dir"
+    tar xzvf /tmp/$base_filename.tar.gz -C "$install_dir" --strip-components=1
+    rm -f /tmp/$base_filename.tar.gz
 
-    if [ -f "/tmp/$base_filename/bin/jetbrains-toolbox" ]; then
-        echo "JetBrains Toolbox downloaded and extracted successfully."
+    if [[ -f "$toolbox_bin" ]]; then
+        echo "JetBrains Toolbox downloaded and installed to $install_dir."
     else
         echo "Failed to download or extract JetBrains Toolbox."
         return 1
     fi
-    "/tmp/$base_filename/bin/jetbrains-toolbox" >/dev/null 2>&1 &
+    "$toolbox_bin" >/dev/null 2>&1 &
     echo "JetBrains Toolbox installation initiated. Please complete the setup through the application interface."
 fi
