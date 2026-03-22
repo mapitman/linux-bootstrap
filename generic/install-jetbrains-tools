@@ -7,14 +7,18 @@
 JETBRAINS_TOOLBOX_VERSION=3.2.0.65851
 base_filename="jetbrains-toolbox-$JETBRAINS_TOOLBOX_VERSION"
 
-curl -L -o /tmp/$base_filename.tar.gz https://download.jetbrains.com/toolbox/$base_filename.tar.gz
-tar xzvf /tmp/$base_filename.tar.gz -C /tmp
-
-if [ -f "/tmp/$base_filename/bin/jetbrains-toolbox" ]; then
-    echo "JetBrains Toolbox downloaded and extracted successfully."
+if [[ -f "$HOME/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox" ]] || command -v jetbrains-toolbox >/dev/null 2>&1; then
+    echo "JetBrains Toolbox is already installed, skipping."
 else
-    echo "Failed to download or extract JetBrains Toolbox."
-    return 1
+    curl -L -o /tmp/$base_filename.tar.gz https://download.jetbrains.com/toolbox/$base_filename.tar.gz
+    tar xzvf /tmp/$base_filename.tar.gz -C /tmp
+
+    if [ -f "/tmp/$base_filename/bin/jetbrains-toolbox" ]; then
+        echo "JetBrains Toolbox downloaded and extracted successfully."
+    else
+        echo "Failed to download or extract JetBrains Toolbox."
+        return 1
+    fi
+    "/tmp/$base_filename/bin/jetbrains-toolbox" >/dev/null 2>&1 &
+    echo "JetBrains Toolbox installation initiated. Please complete the setup through the application interface."
 fi
-"/tmp/$base_filename/bin/jetbrains-toolbox" >/dev/null 2>&1 &
-echo "JetBrains Toolbox installation initiated. Please complete the setup through the application interface."
