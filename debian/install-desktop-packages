@@ -110,3 +110,15 @@ if command -v gsettings >/dev/null 2>&1; then
     gsettings get org.gnome.desktop.wm.preferences button-layout || true
     gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maximize: || true
 fi
+
+# AMD GPU + GNOME/Wayland cursor fix
+# Disabling atomic KMS prevents the hardware cursor plane from being dropped
+# on login/wake, which causes the cursor to be invisible until the compositor recovers.
+if lspci 2>/dev/null | grep -qi 'vga.*amd\|vga.*ati\|3d.*amd\|3d.*ati'; then
+    if ! grep -q 'MUTTER_DEBUG_ENABLE_ATOMIC_KMS' /etc/environment 2>/dev/null; then
+        echo 'MUTTER_DEBUG_ENABLE_ATOMIC_KMS=0' | sudo tee -a /etc/environment
+        echo "Applied AMD cursor fix to /etc/environment (MUTTER_DEBUG_ENABLE_ATOMIC_KMS=0)"
+    else
+        echo "AMD cursor fix already present in /etc/environment, skipping."
+    fi
+fi
