@@ -36,6 +36,13 @@ then
         source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-makemkv)
     fi
 
+    printf "Install 3D printing tools (PrusaSlicer, FreeCAD, OpenSCAD)? "
+    read -r REPLY </dev/tty
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-3d-printing-packages)
+    fi
+
     # Install Ghostty catppuccin theme
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-ghostty-catppuccin-theme)
 fi
