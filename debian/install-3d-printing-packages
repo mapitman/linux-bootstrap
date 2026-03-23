@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-3d-printing-packages)
+
+# Install flatpak if not already present
+if ! command -v flatpak &>/dev/null; then
+    sudo apt-get install -y flatpak || { echo "ERROR: Failed to install flatpak"; return 1; }
+fi
+
+# Add Flathub remote if not already configured
+if ! flatpak remotes | grep -q flathub; then
+    sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo || { echo "ERROR: Failed to add Flathub remote"; return 1; }
+fi
+
+# Install PrusaSlicer
+if ! flatpak list | grep -q com.prusa3d.PrusaSlicer; then
+    sudo flatpak install -y flathub com.prusa3d.PrusaSlicer || echo "WARNING: PrusaSlicer install failed"
+else
+    echo "PrusaSlicer is already installed, skipping."
+fi
+
+# Install FreeCAD
+if ! flatpak list | grep -q org.freecad.FreeCAD; then
+    sudo flatpak install -y flathub org.freecad.FreeCAD || echo "WARNING: FreeCAD install failed"
+else
+    echo "FreeCAD is already installed, skipping."
+fi
+
+# Install OpenSCAD
+if ! flatpak list | grep -q org.openscad.OpenSCAD; then
+    sudo flatpak install -y flathub org.openscad.OpenSCAD || echo "WARNING: OpenSCAD install failed"
+else
+    echo "OpenSCAD is already installed, skipping."
+fi
