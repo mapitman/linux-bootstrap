@@ -26,6 +26,7 @@ code \
 darktable \
 evolution \
 evolution-ews \
+flatpak \
 fonts-cascadia-code \
 fonts-firacode \
 ghostty \
@@ -51,6 +52,14 @@ xclip
 # 32-bit apps fail with "could not load kernel32.dll, status c0000135".
 if [ ! -d "$HOME/.wine" ]; then
     WINEARCH=win64 WINEDEBUG=-all wineboot --init
+fi
+
+# Set up Flathub remote and install Flatseal (Flatpak permissions manager)
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+if ! flatpak list | grep -q com.github.tchx84.Flatseal; then
+    sudo flatpak install -y flathub com.github.tchx84.Flatseal || echo "WARNING: Flatseal install failed"
+else
+    echo "Flatseal is already installed, skipping."
 fi
 
 # Pango 1.56.x workaround: when FONTCONFIG_FILE is unset (or set to the default
