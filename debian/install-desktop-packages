@@ -56,6 +56,24 @@ if [ ! -d "$HOME/.wine" ]; then
     WINEARCH=win64 WINEDEBUG=-all wineboot --init
 fi
 
+# Install Quickemu (uses native package if available, otherwise downloads latest .deb from GitHub)
+if apt-cache show quickemu >/dev/null 2>&1; then
+    sudo apt-get install -y quickemu
+else
+    echo "quickemu: not found in APT repositories, downloading latest release from GitHub..."
+    QUICKEMU_DEB_URL=$(curl -fsSL "https://api.github.com/repos/quickemu-project/quickemu/releases/latest" | grep '"browser_download_url"' | grep '_all\.deb' | head -1 | cut -d'"' -f4)
+    if [ -n "$QUICKEMU_DEB_URL" ]; then
+        QUICKEMU_TMP_DEB="$(mktemp --suffix=.deb)"
+        wget -q "$QUICKEMU_DEB_URL" -O "$QUICKEMU_TMP_DEB"
+        chmod 644 "$QUICKEMU_TMP_DEB"
+        sudo apt-get install -y "$QUICKEMU_TMP_DEB"
+        rm -f "$QUICKEMU_TMP_DEB"
+    else
+        echo "WARNING: quickemu: unable to determine latest .deb URL from GitHub" >&2
+    fi
+fi
+
+
 # Set up Flathub remote and install Flatseal (Flatpak permissions manager)
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 if ! flatpak list | grep -q com.github.tchx84.Flatseal; then
