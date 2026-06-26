@@ -19,6 +19,14 @@ source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/m
 # Install packages
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-packages)
 
+# Dev packages
+printf "Install development tools? "
+read -r REPLY </dev/tty
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-dev-packages)
+fi
+
 # Install eza themes
 source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-eza-themes)
 
