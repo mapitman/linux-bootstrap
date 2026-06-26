@@ -22,6 +22,7 @@ sudo apt-get update
 # Install graphical desktop packages
 sudo apt-get install -y \
 audacity \
+blender \
 code \
 darktable \
 evolution \
@@ -32,6 +33,7 @@ fonts-firacode \
 ghostty \
 gimp \
 gnome-browser-connector \
+gnome-software-plugin-flatpak \
 gnome-tweaks \
 handbrake \
 kdiff3 \
