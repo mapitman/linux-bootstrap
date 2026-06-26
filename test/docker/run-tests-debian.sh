@@ -7,6 +7,9 @@ cd /home/testuser/linux-bootstrap
 echo "Testing Debian package installation..."
 bash debian/install-packages
 
+echo "Testing Debian dev package installation..."
+bash debian/install-dev-packages
+
 echo ""
 echo "Verifying packages are installed..."
 PACKAGES=(
@@ -43,6 +46,14 @@ PACKAGES=(
     zoxide
     zsh
     zsh-doc
+    build-essential
+    cmake
+    default-jdk
+    dotnet-sdk-10.0
+    golang
+    just
+    mise
+    pandoc
 )
 
 MISSING=()
