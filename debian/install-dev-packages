@@ -17,6 +17,15 @@ else
     echo "WARNING: Failed to download Microsoft repository package from $MS_URL"
 fi
 
+# Register mise package repository
+echo "Registering mise package repository..."
+sudo install -dm 755 /etc/apt/keyrings
+if curl -fSs https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg > /dev/null; then
+    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list > /dev/null
+else
+    echo "WARNING: Failed to register mise package repository"
+fi
+
 sudo apt-get update
 
 # Install dev packages
@@ -29,16 +38,18 @@ checkinstall \
 cmake \
 default-jdk \
 dialog \
-dotnet-sdk-8.0 \
+dotnet-sdk-10.0 \
 flex \
 golang \
 hugo \
 jq \
+just \
 libcurl4-openssl-dev \
 libssl-dev \
 libtool \
 make \
 mercurial \
+mise \
 pylint \
 python-is-python3 \
 python3-autopep8 \
@@ -46,3 +57,13 @@ python3-pip \
 twine \
 universal-ctags \
 zlib1g-dev
+
+# Activate mise for bash and zsh configurations
+echo "Adding mise activation hooks to shell configurations..."
+if [ -f "$HOME/.bashrc" ] && ! grep -q "mise activate bash" "$HOME/.bashrc"; then
+    printf '\n# Activate mise version manager\neval "$(mise activate bash)"\n' >> "$HOME/.bashrc"
+fi
+
+if [ -f "$HOME/.zshrc" ] && ! grep -q "mise activate zsh" "$HOME/.zshrc"; then
+    printf '\n# Activate mise version manager\neval "$(mise activate zsh)"\n' >> "$HOME/.zshrc"
+fi
