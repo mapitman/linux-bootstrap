@@ -68,14 +68,14 @@ Use the wrapper script:
 ./test/run-tests.sh syntax
 ```
 
-Or use the Makefile:
+Or use just:
 
 ```bash
-make test
-make test-all
-make test-debian
-make test-debian-all
-make test-syntax
+just test
+just test-all
+just test-debian
+just test-debian-all
+just test-syntax
 ```
 
 ## CI Workflows
@@ -96,8 +96,8 @@ For example, Debian CI tests target `debian/install-packages` rather than `debia
 ## Recommended Workflow
 
 1. Run `bash scripts/check.sh` for repo-wide syntax validation.
-2. Run `make test-debian` for a quick Debian smoke test.
-3. Run `make test-debian-all` before merging Debian-specific changes.
+2. Run `just test-debian` for a quick Debian smoke test.
+3. Run `just test-debian-all` before merging Debian-specific changes.
 4. Use QEMU only if you need to validate behavior Docker cannot represent.
 
 ## Future Enhancements
