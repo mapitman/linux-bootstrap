@@ -50,14 +50,32 @@ youtube-music \
 
 pipx install gnome-extensions-cli --system-site-packages
 
+# We use both tools here for efficient idempotency:
+# - `gnome-extensions list` is native, local, and its output is more easily parseable (cleanly outputs raw UUIDs for grep).
+# - `gext` connects to extensions.gnome.org to download the correct zip file automatically.
+_gext_install() {
+    local uuid="$1"
+    if command -v gnome-extensions >/dev/null 2>&1; then
+        if ! gnome-extensions list | grep -q "$uuid"; then
+            "$HOME"/.local/bin/gext install "$uuid"
+        else
+            echo "GNOME extension $uuid is already installed, skipping."
+        fi
+        if ! gnome-extensions list --enabled | grep -q "$uuid"; then
+            "$HOME"/.local/bin/gext enable "$uuid"
+        else
+            echo "GNOME extension $uuid is already enabled, skipping."
+        fi
+    else
+        "$HOME"/.local/bin/gext install "$uuid"
+        "$HOME"/.local/bin/gext enable "$uuid"
+    fi
+}
 
-"$HOME"/.local/bin/gext install caffeine@patapon.info
-"$HOME"/.local/bin/gext install clipboard-history@alexsaveau.dev
-"$HOME"/.local/bin/gext install freon@UshakovVasilii_Github.yahoo.com
-
-"$HOME"/.local/bin/gext enable caffeine@patapon.info
-"$HOME"/.local/bin/gext enable clipboard-history@alexsaveau.dev
-"$HOME"/.local/bin/gext enable freon@UshakovVasilii_Github.yahoo.com
+_gext_install caffeine@patapon.info
+_gext_install clipboard-history@alexsaveau.dev
+_gext_install freon@UshakovVasilii_Github.yahoo.com
+unset -f _gext_install
 
 # Move window buttons to the left
 gsettings get org.gnome.desktop.wm.preferences button-layout
