@@ -25,6 +25,8 @@ read -r REPLY </dev/tty
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/debian/install-dev-packages)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-claude-code)
+    source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-rtk)
 fi
 
 # Install eza themes
