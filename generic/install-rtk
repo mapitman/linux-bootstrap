@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/generic/install-rtk)
+
+if command -v rtk >/dev/null 2>&1; then
+    echo "rtk is already installed, skipping."
+else
+    curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
+fi
