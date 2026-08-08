@@ -19,6 +19,10 @@ sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --yes --dearmor -o /etc/apt/keyrings/charm.gpg
 echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
 
+# Use the Readline debconf frontend so package prompts (e.g. service restarts
+# during upgrades) render as plain text instead of an unreadable whiptail dialog
+echo "debconf debconf/frontend select Readline" | sudo debconf-set-selections
+
 # Update package repos
 sudo apt-get update
 

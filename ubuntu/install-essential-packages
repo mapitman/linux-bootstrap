@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # source <(curl -fsSL https://raw.githubusercontent.com/mapitman/linux-bootstrap/main/ubuntu/install-essential-packages)
 
+# Use the Readline debconf frontend so package prompts (e.g. service restarts
+# during upgrades) render as plain text instead of an unreadable whiptail dialog
+echo "debconf debconf/frontend select Readline" | sudo debconf-set-selections
+
 # Update package repos
 sudo apt-get update
 
