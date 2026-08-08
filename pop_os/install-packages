@@ -9,6 +9,10 @@ sudo add-apt-repository -y universe
 # Add Neovim PPA
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 
+# Use the Readline debconf frontend so package prompts (e.g. service restarts
+# during upgrades) render as plain text instead of an unreadable whiptail dialog
+echo "debconf debconf/frontend select Readline" | sudo debconf-set-selections
+
 # Update package repos
 sudo apt-get update
 
